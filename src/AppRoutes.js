@@ -2,6 +2,7 @@ import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import { AddJob } from "./components/AddJob";
+import React from "react";
 
 
 const AppRoutes = [
