@@ -9,6 +9,7 @@ services:
       - My_2ndDocker_Network
     ports:
       - "5000"
+    restart: unless-stopped
 #    volumes:
 #      - /etc/letsencrypt:/etc/letsencrypt
 
@@ -26,6 +27,7 @@ services:
     ports:
       - "80:80"
 #      - "443:443"
+    restart: unless-stopped
 
 networks:
   My_2ndDocker_Network:
