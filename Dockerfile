@@ -4,8 +4,10 @@ WORKDIR /App
 
 COPY . .
 
-RUN apt-get update
-RUN npm install -g serve
-RUN npm run build
+# RUN apt-get update
+# RUN npm i -S serve
+# RUN npm run build
 
-CMD [ "serve", "-s", "build" ]
+# CMD [ "serve", "-s", "build" ]
+
+CMD [ "npm", "start" ]
