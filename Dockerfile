@@ -10,4 +10,5 @@ COPY . .
 # RUN npm i -S serve
 # RUN npm run build
 
-CMD [ "serve", "-s", "build", "-l", "5000"]
+# CMD [ "serve", "-s", "build", "-l", "5000"]
+CMD [ "npm", "start" ]
