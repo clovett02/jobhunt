@@ -1,13 +1,15 @@
-FROM node
+FROM node:alpine
 
 WORKDIR /App
 
-COPY package.json ./
-COPY package-lock.json ./
+# ENV PATH /app/node_modules/.bin:$PATH
+
+# COPY package.json ./
+# COPY package-lock.json ./
+
+COPY . .
 
 RUN npm install
-
-COPY . ./
 
 # RUN apt-get update
 # RUN npm i -S serve
