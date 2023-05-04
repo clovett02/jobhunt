@@ -4,7 +4,6 @@ export class AddJob_form extends Component {
     constructor(props)
     {
         super(props);
-        // this.state = {value: ''};
         
         this.FieldNames = ["CompanyName", "JobTitle", "State", "City",
                     "Remote", "Hybrid", "Onsite", "ApplicationDate",
@@ -52,20 +51,15 @@ export class AddJob_form extends Component {
         });
 
         this.setBooleanValues(postdata);
-        // data.append("SkillsRequired", [""])
 
         postdata["SkillsRequired"] = [""];
-        // postdata["Remote"] = true;
-        // postdata["Responded"] = false;
 
         let response = fetch("http://hulk.jobhuntapi/jobinfo", 
         {
             headers: {"Content-Type": "application/json"},
             method: "POST",
-            // body: JSON.stringify(postdata)
             body: JSON.stringify(postdata)
         });
-        console.log(postdata);
         console.log(response);
         console.log(JSON.stringify(postdata));
         
