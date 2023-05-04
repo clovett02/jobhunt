@@ -62,6 +62,8 @@ export class AddJob_form extends Component {
         });
         console.log(response);
         console.log(JSON.stringify(postdata));
+
+        alert("Job submitted.", response)
         
     }
 
