@@ -16,7 +16,7 @@ export class AddJob_form extends Component {
             City: '',
             Remote: false,
             Hybrid: false,
-            Remote: false,
+            Onsite: false,
             ApplicationDate: Date.now(),
             ApplicationTime: Date.now()
         }
