@@ -6,7 +6,7 @@ WORKDIR /App
 
 COPY . .
 
-RUN apt-get update
+RUN apt update
 RUN npm i -S serve
 RUN npm run build
 
