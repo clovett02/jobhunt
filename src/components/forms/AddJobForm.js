@@ -8,6 +8,21 @@ export class AddJobForm extends Component {
     {
         super(props);
 
+        const year = new Date().getFullYear();
+        let month = new Date().getMonth() + 1;
+        let day = new Date().getDate();
+        let hour = new Date().getHours();
+        let minute = new Date().getMinutes();
+
+        if (String(month).length < 2) 
+        { month = "0" + month; }
+        if (String(day).length < 2)
+        { day = "0" + day; }
+        if (String(hour).length < 2) 
+        { hour = "0" + hour; }
+        if (String(minute).length < 2)
+        { minute = "0" + minute; }
+
         this.state = 
         {
             CompanyName: '',
@@ -17,15 +32,26 @@ export class AddJobForm extends Component {
             Remote: false,
             Hybrid: false,
             Onsite: false,
-            ApplicationDate: '',
-            ApplicationTime: ''
-        }
+            ApplicationDate: year + "-" + month + "-" + day,
+            ApplicationTime: year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":00"
+        };
         
         this.FieldNames = ["CompanyName", "JobTitle", "State", "City",
                     "Remote", "Hybrid", "Onsite", "ApplicationDate",
                     "ApplicationTime"];
+
     }
     
+    setChecked = event =>
+    {
+        const { name, checked } = event.target;
+        this.setState
+        ({
+            [name]:checked
+        });
+        console.log("The checkbox was toggled " + name + ": " + checked);
+    }
+
     handleInputChange = event => 
     {
         const { name, value } = event.target;
@@ -66,11 +92,13 @@ export class AddJobForm extends Component {
 
         console.log(JSON.stringify(formData));
         
-        fetch('http://hulk.jobhuntapi/jobinfo', 
+        fetch('http://hulk.jobhuntapi/jobinfo',
         {
             method: 'POST',
+            // mode: "no-cors",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
+            
         })
         .then(response => response.json())
         .then(data => {
@@ -79,39 +107,6 @@ export class AddJobForm extends Component {
         })
         .catch(error => console.error('Error sending form data:', error));
     }
-
-    // handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     let data = new FormData(event.target);
-    //     let postdata = {};
-
-    //     this.FieldNames.forEach(element => {
-    //         if(data.get(element) != null)
-    //         {
-    //             data.append(element, data.get(element));
-    //         }
-    //     });
-
-    //     data.forEach((value, key) => {
-    //         postdata[key] = value;
-    //     });
-
-    //     this.setBooleanValues(postdata);
-
-    //     postdata["SkillsRequired"] = [""];
-
-    //     let response = fetch("http://hulk.jobhuntapi/jobinfo", 
-    //     {
-    //         headers: {"Content-Type": "application/json"},
-    //         method: "POST",
-    //         body: JSON.stringify(postdata)
-    //     });
-    //     console.log(response);
-    //     console.log(JSON.stringify(postdata));
-
-    //     alert("Job submitted.", response)
-        
-    // }
 
     render() {
         return (
@@ -134,15 +129,15 @@ export class AddJobForm extends Component {
                     value={this.state.City} onChange={this.handleInputChange}/><br/>
                     
                     <input type="checkbox" id="Remote" name={this.FieldNames[4]}
-                    value={this.state.Remote} onChange={this.handleInputChange}/>
+                    value={this.state.Remote} onChange={this.setChecked}/>
                     <label for="Remote"> Remote</label><br/>
 
                     <input type="checkbox" id="Hybrid" name={this.FieldNames[5]}
-                    value={this.state.Hybrid} onChange={this.handleInputChange}/>
+                    value={this.state.Hybrid} onChange={this.setChecked}/>
                     <label for="Hybrid">Hybrid</label><br/>
                     
                     <input type="checkbox" id="Onsite" name={this.FieldNames[6]}
-                    value={this.state.Onsite} onChange={this.handleInputChange}/>
+                    value={this.state.Onsite} onChange={this.setChecked}/>
                     <label for="Onsite">Onsite</label><br/>
                     
                     <label for="ApplicationDate">Application Date</label><br/>
