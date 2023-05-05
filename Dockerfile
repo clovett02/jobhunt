@@ -6,9 +6,9 @@ WORKDIR /App
 
 COPY . .
 
-# RUN apt-get update
-# RUN npm i -S serve
-# RUN npm run build
+RUN apt-get update
+RUN npm i -S serve
+RUN npm run build
 
-# CMD [ "serve", "-s", "build", "-l", "5000"]
-CMD [ "npm", "start" ]
+CMD [ "serve", "-s", "build", "-l", "5000"]
+# CMD [ "npm", "start" ]
