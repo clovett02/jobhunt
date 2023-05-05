@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { AddJob_form } from './forms/AddJob_form';
+import { AddJobForm } from './forms/AddJobForm';
 
 export class AddJob extends Component {
     static displayName = AddJob.name;
@@ -13,7 +13,7 @@ export class AddJob extends Component {
                     then select submit or press enter for it to be uploaded to the 
                     MySQL database.
                 </p>
-                <AddJob_form/>
+                <AddJobForm/>
             </div>
             
         );

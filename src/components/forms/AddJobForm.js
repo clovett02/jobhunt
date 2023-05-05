@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-export class AddJob_form extends Component {
+export class AddJobForm extends Component {
     
-    static displayName = AddJob_form.name;
+    static displayName = AddJobForm.name;
 
     constructor(props)
     {
@@ -17,8 +17,8 @@ export class AddJob_form extends Component {
             Remote: false,
             Hybrid: false,
             Onsite: false,
-            ApplicationDate: Date.now(),
-            ApplicationTime: Date.now()
+            ApplicationDate: '',
+            ApplicationTime: ''
         }
         
         this.FieldNames = ["CompanyName", "JobTitle", "State", "City",
@@ -63,6 +63,8 @@ export class AddJob_form extends Component {
             Hybrid, Onsite, ApplicationDate, ApplicationTime } = this.state;
         const formData = { CompanyName, JobTitle, State, City, Remote,
             Hybrid, Onsite, ApplicationDate, ApplicationTime };
+
+        console.log(JSON.stringify(formData));
         
         fetch('http://hulk.jobhuntapi/jobinfo', 
         {
