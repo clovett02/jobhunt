@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:latest
 
 WORKDIR /App
 
@@ -7,7 +7,7 @@ WORKDIR /App
 COPY . .
 
 # RUN apt update
-RUN npm i -S serve
+RUN npm install -S serve
 RUN npm run build
 
 CMD [ "serve", "-s", "build", "-l", "5000"]
