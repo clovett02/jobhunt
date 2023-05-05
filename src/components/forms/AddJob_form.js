@@ -125,7 +125,7 @@ export class AddJob_form extends Component {
                     
                     <label for="State">State</label><br/>
                     <input type="text" placeholder="State" id="State" name={this.FieldNames[2]}
-                    value={} onChange={this.handleInputChange}/><br/>
+                    value={this.state.State} onChange={this.handleInputChange}/><br/>
 
                     <label for="City">City</label><br/>
                     <input type="text" placeholder="City" id="City" name={this.FieldNames[3]}
