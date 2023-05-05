@@ -6,8 +6,7 @@ services:
       context: .
     image: jobhunt:latest
     networks:
-      - My_Docker_Network
-      # - My_2ndDocker_Network
+      - My_2ndDocker_Network
     ports:
       - "5000"
     restart: unless-stopped
@@ -18,8 +17,8 @@ services:
     image: nginx:latest
     container_name: nginx_jobhunt
     networks:
-      My_Docker_Network:
-        ipv4_address: 192.168.2.102
+      My_2ndDocker_Network:
+        ipv4_address: 192.168.3.102
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
 #      - /etc/letsencrypt:/etc/letsencrypt
@@ -31,7 +30,7 @@ services:
     restart: unless-stopped
 
 networks:
-  My_Docker_Network:
+  My_2ndDocker_Network:
     external: true
 
   
