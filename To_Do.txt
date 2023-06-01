@@ -1,0 +1,4 @@
+1. Create the page that displays jobs that are currently in the database.
+2. Add buttons that allow jobs to be deleted or editted.
+  -Need to update the API to handle edits.
+  
