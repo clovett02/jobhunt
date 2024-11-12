@@ -17,7 +17,7 @@ services:
     image: nginx:latest
     container_name: nginx_jobhunt
     networks:
-      My_Docker_Network:
+      MyDockerNetwork:
         ipv4_address: 192.168.3.102
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
