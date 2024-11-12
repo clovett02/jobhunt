@@ -12,6 +12,6 @@ deploy-job:
         git pull &&
         npm install &&
         docker build -t jobhunt . &&
-        docker-compose down &&
-        docker-compose up -d'
+        docker compose down &&
+        docker compose up -d'
     - echo "Application successfully deployed."
