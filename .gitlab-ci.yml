@@ -6,7 +6,7 @@ deploy-job:
   environment: production
   script:
     - echo "Deploying application..."
-    - ssh -tt cjsonic02@hulk.home '
+    - ssh -tt chris@thor.home '
         cd docker_files/WebApps/JobHunt && 
         git restore . &&
         git pull &&

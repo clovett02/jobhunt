@@ -6,7 +6,7 @@ services:
       context: .
     image: jobhunt:latest
     networks:
-      - My_Docker_Network
+      - MyDockerNetwork
     ports:
       - "5000"
     restart: unless-stopped
@@ -30,7 +30,7 @@ services:
     restart: unless-stopped
 
 networks:
-  My_Docker_Network:
+  MyDockerNetwork:
     external: true
 
   
