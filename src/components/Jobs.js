@@ -9,7 +9,7 @@ export class Jobs extends Component
     {
         super(props);
         this.info = (
-            fetch('http://hulk.jobhuntapi/jobinfo',
+            fetch('http://thor.jobhuntapi/jobinfo',
             {
                 method: 'GET',
                 headers: {'Content-Type': 'applicaiton/json'}
@@ -18,10 +18,10 @@ export class Jobs extends Component
     }
 
     loadJobs(){
-        const response = fetch('http://hulk.jobhuntapi/jobinfo')
-        const result = response.json();
+        const response = fetch('http://thor.jobhuntapi/jobinfo')
+        //const result = response.json();
 
-        return result;
+        //return result;
     }
 
     render() 
