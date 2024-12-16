@@ -96,8 +96,7 @@ export class AddJobForm extends Component {
         {
             method: 'POST',
             //mode: "no-cors",
-            headers: { 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://thor.jobhunt'
+            headers: { 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
             
