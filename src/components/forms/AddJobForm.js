@@ -92,7 +92,7 @@ export class AddJobForm extends Component {
 
         console.log(JSON.stringify(formData));
         
-        fetch('http://thor.jobhuntapi/addjob',
+        fetch('http://thor.jobhuntapi/api/job/addjob',
         {
             method: 'POST',
             //mode: "no-cors",
