@@ -113,40 +113,40 @@ export class AddJobForm extends Component {
         return (
             <div>
                 <form id="jobform" onSubmit={this.handleSubmit}>
-                    <label for="CompanyName">Company Name</label><br/>
+                    <label htmlFor="CompanyName">Company Name</label><br/>
                     <input type="text" placeholder="Company Name" id="CompanyName" name={this.FieldNames[0]}
                     value={this.state.CompanyName} onChange={this.handleInputChange}/><br/>
                     
-                    <label for="JobTitle">Job Title</label><br/>
+                    <label htmlFor="JobTitle">Job Title</label><br/>
                     <input type="text" placeholder="Job Title" id="JobTitle" name={this.FieldNames[1]}
                     value={this.state.JobTitle} onChange={this.handleInputChange}/><br/>
                     
-                    <label for="State">State</label><br/>
+                    <label htmlFor="State">State</label><br/>
                     <input type="text" placeholder="State" id="State" name={this.FieldNames[2]}
                     value={this.state.State} onChange={this.handleInputChange}/><br/>
 
-                    <label for="City">City</label><br/>
+                    <label htmlFor="City">City</label><br/>
                     <input type="text" placeholder="City" id="City" name={this.FieldNames[3]}
                     value={this.state.City} onChange={this.handleInputChange}/><br/>
                     
                     <input type="checkbox" id="Remote" name={this.FieldNames[4]}
                     value={this.state.Remote} onChange={this.setChecked}/>
-                    <label for="Remote"> Remote</label><br/>
+                    <label htmlFor="Remote"> Remote</label><br/>
 
                     <input type="checkbox" id="Hybrid" name={this.FieldNames[5]}
                     value={this.state.Hybrid} onChange={this.setChecked}/>
-                    <label for="Hybrid">Hybrid</label><br/>
+                    <label htmlFor="Hybrid">Hybrid</label><br/>
                     
                     <input type="checkbox" id="Onsite" name={this.FieldNames[6]}
                     value={this.state.Onsite} onChange={this.setChecked}/>
-                    <label for="Onsite">Onsite</label><br/>
+                    <label htmlFor="Onsite">Onsite</label><br/>
                     
-                    <label for="ApplicationDate">Application Date</label><br/>
+                    <label htmlFor="ApplicationDate">Application Date</label><br/>
                     <input type="date" placeholder="Application Date" id="ApplicationDate" 
                     name={this.FieldNames[7]}
                     value={this.state.ApplicationDate} onChange={this.handleInputChange}/><br/>
                     
-                    <label for="ApplicationTime">Application Time</label><br/>
+                    <label htmlFor="ApplicationTime">Application Time</label><br/>
                     <input type="datetime-local" placeholder="Application Time" id="ApplicationTime" 
                     name={this.FieldNames[8]}
                     value={this.state.ApplicationTime} onChange={this.handleInputChange}/><br/>
