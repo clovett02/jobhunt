@@ -95,9 +95,7 @@ export class AddJobForm extends Component {
         fetch('http://thor.jobhuntapi/api/job/addjob',
         {
             method: 'POST',
-            //mode: "no-cors",
-            headers: { 'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(formData)
             
         })
