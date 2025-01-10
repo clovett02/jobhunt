@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Jobs } from './Jobs';
 
+/**
+ * Homepage
+ */
 export class Home extends Component {
   static displayName = Home.name;
 

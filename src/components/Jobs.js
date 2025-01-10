@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 
-//Will show all jobs applied to by querying the Jobhuntapi @ thor.jobhuntapi
+
+/**
+ * Show all jobs applied to by querying the Jobhuntapi @ thor.jobhuntapi
+ */
 export class Jobs extends Component
 {
     static displayName = Jobs.name;

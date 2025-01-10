@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 
+
+/**
+ * Form for adding submitting job to database.
+ */
 export class AddJobForm extends Component {
     
     static displayName = AddJobForm.name;

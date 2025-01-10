@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import { AddJobForm } from './forms/AddJobForm';
 
+/**
+ * Page for adding jobs to database. Contains AddJobForm.
+ */
 export class AddJob extends Component {
     static displayName = AddJob.name;
 
