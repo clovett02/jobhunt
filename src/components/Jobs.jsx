@@ -7,8 +7,6 @@ import React, { Component } from "react";
 export class Jobs extends Component
 {
     static displayName = Jobs.name;
-    static alljobsurl = 'http://thor.jobhuntapi/api/jobs/pastyear';
-    static jobByIDurl = 'http://thor.jobhuntapi/api/job/byid/49';
 
     constructor(props)
     {
@@ -25,6 +23,9 @@ export class Jobs extends Component
     componentDidMount()
     { this.fetchJobs(); }
 
+    /**
+     * Fetches Jobs from Jobhuntapi
+     */
     fetchJobs = async () => 
     {
         try
@@ -37,9 +38,7 @@ export class Jobs extends Component
             )
             if (!response.ok) {throw new Error(`HTTP error! status: ${response.status}`);}
             const result = await response.json();
-            this.setState({jobs: result, loading: false})
-            
-                
+            this.setState({jobs: result, loading: false})  
         }
         catch (error) {this.setState({ error: error.message, loading: false });}
     }
@@ -101,10 +100,8 @@ export class Jobs extends Component
                         <td>{job.EasyApply}</td>
                     </tr>)}
                     </tbody>
-                    
                 </table>
             </div>
         );
-        
     }
 }
