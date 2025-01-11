@@ -69,15 +69,34 @@ export class Jobs extends Component
             <div>
                 <br></br>
                 <h3>Jobs Applied to Within the past year</h3>
-                <ul>{jobs.map((item) => 
-                    <li key={item.JobID}>
-                        Company: {item.CompanyName}<br/>
-                        Job Title: {item.JobTitle} &emsp; Location: {item.City} {item.State}<br/>
-                        {this.RemoteHybridOnsitetoString(item.Remote, item.Hybrid, item.Onsite)}<br/>
-                        Job Description: {item.JobDescription}
-                        
-                        </li>
-                )}</ul>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Job Title</th>
+                            <th>Location</th>
+                            <th>Remote?</th>
+                            <th>Application<br/>Date</th>
+                            <th>Application<br/>Time</th>
+                            <th>Site Found<br/> On</th>
+                            <th>Used<br/>EasyApply?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {jobs.map((job) => 
+                    <tr key={job.JobID}>
+                        <td>{job.CompanyName}</td>
+                        <td>{job.JobTitle}</td>
+                        <td>{job.City} {job.State}</td>
+                        <td>{this.RemoteHybridOnsitetoString(job.Remote, job.Hybrid, job.Onsite)}</td>
+                        <td>{job.ApplicationDate}</td>
+                        <td>{job.ApplicationTime}</td>
+                        <td>{job.SiteFoundOn}</td>
+                        <td>{job.EasyApply}</td>
+                    </tr>)}
+                    </tbody>
+                    
+                </table>
             </div>
         );
         
