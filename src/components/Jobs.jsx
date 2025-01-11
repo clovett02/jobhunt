@@ -43,10 +43,16 @@ export class Jobs extends Component
         }
         catch (error) {this.setState({ error: error.message, loading: false });}
     }
-
+    /**
+     * Returns 'Remote', 'Hybrid', or 'Onsite' depending on the value of
+     * the arguments given.
+     * @param {boolean} r Remote boolean value
+     * @param {boolean} h Hybrid boolean value
+     * @param {boolean} o Onsite boolean value
+     * @returns String
+     */
     RemoteHybridOnsitetoString(r,  h,  o)
     {
-        //r is for remote, h is for hybrid, and o is for onsite
         if (r){return "Remote";}
         if (h){return "Hybrid";}
         if (o){return "Onsite";}
