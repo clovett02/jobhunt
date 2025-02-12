@@ -4,9 +4,9 @@ import React, { Component } from "react";
 /**
  * Show all jobs applied to by querying the Jobhuntapi @ thor.jobhuntapi
  */
-export class Jobs extends Component
+export class JobsPage extends Component
 {
-    static displayName = Jobs.name;
+    static displayName = JobsPage.name;
 
     constructor(props)
     {
@@ -58,6 +58,11 @@ export class Jobs extends Component
         return "";
     }
 
+    ReturnJobURL(jobid)
+    {
+        return "/updatejob/?jobid=" + jobid
+    }
+
     render() 
     {
         const { jobs, loading, error } = this.state;
@@ -91,7 +96,7 @@ export class Jobs extends Component
                     {jobs.map((job) => 
                     <tr key={job.JobID}>
                         <td>{job.CompanyName}</td>
-                        <td>{job.JobTitle}</td>
+                        <td><a href={this.ReturnJobURL(job.JobID)}>{job.JobTitle}</a></td>
                         <td>{job.City} {job.State}</td>
                         <td>{this.RemoteHybridOnsitetoString(job.Remote, job.Hybrid, job.Onsite)}</td>
                         <td>{job.ApplicationDate}</td>

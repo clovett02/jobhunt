@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Jobs } from './Jobs';
+import { JobsPage } from './JobsPage';
 
 /**
  * Homepage
@@ -11,7 +11,7 @@ export class Home extends Component {
     return (
       <div>
         <h1>Summary of Jobs Applied To</h1>
-        <Jobs/>
+        <JobsPage/>
       </div>
     );
   }
