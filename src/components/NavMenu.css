@@ -1,18 +1,45 @@
-﻿a.navbar-brand {
+﻿
+div.headarea {
+  padding-top: 4px;
+  padding-bottom: 10px;
+  border-bottom: 4px solid grey;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+div.brand {
+  float: left;
   white-space: normal;
   text-align: center;
-  word-break: break-all;
+  width: 50%;
+  font-size: 40px;
 }
 
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+div.links {
+  display: inline;
+  float: right;
+  width: 50%;
+  font-size: 24px;
+  text-align: center;
 }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+ul {
+  list-style: none;
+}
+
+li {
+  display: inline;
+  padding: 7px;
+}
+
+a {
+  text-decoration-line: none;
+  color: black;
+}
+
+a:visited {
+  color: black;
+}
+
+.links a:hover {
+  color: yellow;
 }
