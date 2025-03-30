@@ -24,6 +24,12 @@ export class NavMenu extends Component {
   render() {
     return (
       <header>
+        <ul>
+          <li>
+            
+          </li>
+        </ul>
+
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
           <NavbarBrand tag={Link} to="/">JobHunt</NavbarBrand>
           <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
