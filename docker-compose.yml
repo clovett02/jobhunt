@@ -3,7 +3,7 @@ services:
   jobhunt:
     build:
       context: .
-    image: jobhunt:latest
+    image: thor.docker.registry:5000/jobhunt:latest
     networks:
       - MyDockerNetwork
     ports:
