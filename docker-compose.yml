@@ -1,16 +1,21 @@
-
 services:
   jobhunt:
-    build:
-      context: .
     image: thor.docker.registry:5000/jobhunt:latest
+    container_name: jobhunt
     networks:
       - MyDockerNetwork
     ports:
       - "5000"
     restart: unless-stopped
-#    volumes:
-#      - /etc/letsencrypt:/etc/letsencrypt
+
+  jobhuntapi:
+    image: thor.docker.registry:5000/jobhuntapi:latest
+    container_name: jobhuntapi
+    networks:
+      - MyDockerNetwork
+    ports:
+      - "5000"
+    restart: "unless-stopped"
 
   nginx_jobhunt:
     image: nginx:latest
@@ -20,16 +25,12 @@ services:
         ipv4_address: 192.168.3.102
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-#      - /etc/letsencrypt:/etc/letsencrypt
     depends_on:
       - jobhunt
     ports:
       - "80:80"
-#      - "443:443"
     restart: unless-stopped
 
 networks:
   MyDockerNetwork:
     external: true
-
-  
