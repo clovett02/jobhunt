@@ -8,6 +8,7 @@ COPY . .
 
 # RUN apt update
 RUN npm install -g serve
+RUN npm install
 RUN npm run build
 
 CMD [ "serve", "-s", "build", "-l", "5000"]
