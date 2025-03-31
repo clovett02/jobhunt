@@ -24,5 +24,5 @@ deploy-job:
     - ssh -tt chris@thor.docker '
         docker pull thor.docker.registry:5000/jobhunt &&
         docker compose -f ~/docker_files/compose_files/jobhunt/docker-compose.yml down &&
-        docker compose -f ~/docker_files/compose_files/jobhunt/docker-compose.yml up'
+        docker compose -f ~/docker_files/compose_files/jobhunt/docker-compose.yml up -d'
     - echo "Application successfully deployed."
