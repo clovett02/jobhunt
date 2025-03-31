@@ -10,7 +10,7 @@ build-job:
   services:
     - name: docker:dind
       command: ['--insecure-registry=thor.docker.registry:5000']
-  before-script: 
+  before_script: 
     - docker info
   script:
     - docker build -t thor.docker.registry:5000/jobhunt .
