@@ -50,6 +50,33 @@ export class JobUpdatePage extends Component{
         catch (error) {this.setState({ error: error.message, loading: false });}
     }
 
+    editCityState = event => {
+
+    }
+
+    editDescription = event => {
+
+    }
+
+    updateCityandState = event => {
+        const job = this.state.job;
+        
+    }
+
+    updateDescription = event => {
+        const job = this.state.job;
+        const { ID, JobDescription } = (job.ID, job.JobDescription);
+        const formdata =  { ID, JobDescription };
+        const url = "thor.jobhuntapi/api/job/updatedescription"
+        fetch(url,
+            {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(formdata)
+            }
+        )
+    }
+
     render(){
         const {job, jobID, loading, error} = this.state;
 
@@ -65,9 +92,17 @@ export class JobUpdatePage extends Component{
             <div>
                 <label>JobID: {jobID}</label><br/>
                 <label>{job.JobTitle}</label><br/>
-                <label>{job.City} {job.State}</label><br/>
-                <label>{job.CompanyName}</label><br/>
-                <textarea>{job.JobDescription}</textarea>
+                {/* <form id="location" onSubmit={this.updateCityandState}> */}
+                    <label>{job.City} {job.State}</label><br/>
+                    <button>Edit Location</button><br/>
+                {/* </form> */}
+                <label>{job.CompanyName}</label><br/><br/>
+                {/* <form id="description" onSubmit={this.updateDescription}> */}
+                    <label>Job Description:</label><br/><br/>
+                    <text>{job.JobDescription}</text>
+                    <button onClick={this.editDescription}>Edit Description</button>
+                {/* </form> */}
+
             </div>
         )
         
