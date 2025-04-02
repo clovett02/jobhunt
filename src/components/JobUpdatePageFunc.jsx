@@ -12,6 +12,9 @@ export function JobUpdatePageFunc(){
     const [error, seterror] = useState("")
     const [loading, setloading] = useState(true)
 
+    const [editdescriptionhidden, setdescriptionhidden] = useState("true")
+    const [editlocationhidden, seteditlocationhidden] = useState("true")
+
     useEffect(() => {
         const fetchJob = async () => {
             let url = "http://thor.jobhuntapi/api/job/byID/" + jobID
@@ -43,11 +46,13 @@ export function JobUpdatePageFunc(){
     });
 
     const editCityState = () => {
-
+        if ( editlocationhidden === "" ){ seteditlocationhidden("true"); }
+        else { seteditlocationhidden("");}
     }
 
     const editDescription = () => {
-
+        if(editdescriptionhidden === ""){ setdescriptionhidden("true"); }
+        else{ setdescriptionhidden(""); }
     }
     
     if (loading){
@@ -63,10 +68,15 @@ export function JobUpdatePageFunc(){
             <label>{job.JobTitle}</label><br/>
                 <label>{job.City} {job.State}</label>
                 <button onClick={editCityState}>Edit Location</button><br/>
+                <input type="text" hidden={editlocationhidden} placeholder="City"/>
+                <input type="text" hidden={editlocationhidden} placeholder="State"/>
+                <button hidden={editlocationhidden}>Submit</button><br/>
             <label>{job.CompanyName}</label><br/><br/>
                 <label>Job Description:</label><br/><br/>
-                <text>{job.JobDescription}</text>
-                <button onClick={editDescription}>Edit Description</button>
+                <text>{job.JobDescription}</text><br/>
+                <button onClick={editDescription}>Edit Description</button><br/>
+                <input type="text" hidden={editdescriptionhidden} placeholder="Description"/>
+                <button hidden={editdescriptionhidden}>Submit</button>
         </div>
     )
 }
