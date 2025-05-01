@@ -1,26 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Job } from "../classes/Job.ts"
 import { fetchjobByID } from "../functions/fetchjob.ts";
+import { nulljob } from "../functions/nulljob.ts";
 
 export function JobUpdatePageFunc(){
 
-    const queryString = window.location.search;
+    const queryString: string = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const [jobID] = useState(urlParams.get('jobid'))
 
-    const j = new Job();
-    const [job, setjob] = useState({j})
-    const [error, seterror] = useState("")
-    const [loading, setloading] = useState(true)
+    const j: Job = nulljob();
+    const [job, setjob] = useState(j);
+    const [error, seterror] = useState("");
+    const [loading, setloading] = useState(true);
 
-    const [editdescriptionhidden, setdescriptionhidden] = useState("true")
-    const [editlocationhidden, seteditlocationhidden] = useState("true")
+    const [city, setcity] = useState('')
+    const [state, setstate] = useState('')
+    const [description, setdescription] = useState('')
+
+    const [editdescriptionhidden, setdescriptionhidden] = useState(true)
+    const [editlocationhidden, seteditlocationhidden] = useState(true)
 
     useEffect(() => {
         const fetchJob = async () => {
             
             try{
-                const j = await fetchjobByID(jobID)
+                const j: Job | 1 = await fetchjobByID(jobID) as Job
+                // const [job, setjob] = useState({j})
                 setjob(j);
                 setloading(false);
             } catch (error) { seterror(error.message) } finally { setloading(false); }
@@ -29,12 +35,13 @@ export function JobUpdatePageFunc(){
     });
 
     const editCityState = () => {
-        if ( editlocationhidden === "" ){ seteditlocationhidden("true"); }
-        else { seteditlocationhidden("");}
+        if ( editlocationhidden === false ){ seteditlocationhidden(true); }
+        else { seteditlocationhidden(false);}
     }
     const updateLocation = async () => {
-        const city = document.querySelector('.cityinput').value;
-        const state = document.querySelector('.stateinput').value;
+        // let doc = Document;
+        // const city = doc.querySelector('.cityinput').value;
+        // const state = doc.querySelector('.stateinput').value;
 
         if (!city || !state) {
             alert("City and State cannot be empty.");
@@ -59,18 +66,30 @@ export function JobUpdatePageFunc(){
             alert(`Failed to update location: ${error.message}`);
         }
         alert("Location updated successfully!");
-        seteditlocationhidden("true");
+        seteditlocationhidden(true);
     }
 
     const editDescription = () => {
-        if(editdescriptionhidden === ""){ setdescriptionhidden("true"); }
-        else{ setdescriptionhidden(""); }
+        if(editdescriptionhidden === false){ setdescriptionhidden(true); }
+        else{ setdescriptionhidden(false); }
+    }
+
+    function worksite()
+    {
+        if(job.Remote){return "Remote"}
+        else if(job.Hybrid){return "Hybrid"}
+        else if (job.Onsite) {return "Onsite"}
+    }
+    function responded()
+    {
+        if(job.Responded){return "Yes"}
+        else { return "No"}
     }
 
     const updateDescription = async () => {
-        const descriptionInput = document.querySelector('.descriptioninput').value;
+        // const description = document.querySelector('.descriptioninput').value;
 
-        if (!descriptionInput) {
+        if (!description) {
             alert("Description cannot be empty.");
             return;
         }
@@ -78,7 +97,7 @@ export function JobUpdatePageFunc(){
         const url = "http://thor.jobhuntapi/api/job/updatedescription";
         const payload = {
             ID: jobID,
-            JobDescription: descriptionInput
+            JobDescription: description
         };
         try {
             const response = await fetch(url, {
@@ -90,11 +109,16 @@ export function JobUpdatePageFunc(){
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             alert("Description updated successfully!");
-            setdescriptionhidden("true");
+            setdescriptionhidden(true);
         } catch (error) {
             alert(`Failed to update description: ${error.message}`);
         }
     }
+
+    const handlecitychange = (event) => { setcity(event.target.value); }
+    const handlestatechange = (event) => { setstate(event.target.value); }
+    const handledescriptionchange = (event) => { setdescription(event.target.value); }
+
 
     if (loading){
         return <p>Loading...</p>
@@ -110,12 +134,18 @@ export function JobUpdatePageFunc(){
             
             <label>{job.City} {job.State}</label>
             <button onClick={editCityState}>Edit Location</button><br/>
-            <input className="cityinput" type="text" hidden={editlocationhidden} placeholder={job.City}/>
-            <input className="stateinput" type="text" hidden={editlocationhidden} placeholder={job.State}/>
+            <input className="cityinput" type="text" value={city} onChange={handlecitychange}
+                hidden={editlocationhidden} placeholder={job.City}/>
+            <input className="stateinput" type="text" value={state} onChange={handlestatechange}
+                hidden={editlocationhidden} placeholder={job.State}/>
             <button className="submitlocationbutton" 
                 hidden={editlocationhidden} onClick={updateLocation}>Submit</button><br/>
             
-            <label>Worksite</label>
+            <label>Worksite:  {worksite()}</label><br/>
+            
+            <label>Responded:  {responded()}</label><br/>
+            
+            <label>Site Found On:  {job.SiteFoundOn}</label><br/><br/>
 
             <label>{job.CompanyName}</label><br/><br/>
             

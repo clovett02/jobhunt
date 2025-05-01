@@ -1,7 +1,9 @@
 import { Job } from "../classes/Job.ts";
 
-export async function fetchjobByID(jobID: string)
+export async function fetchjobByID(jobID: string | null)
 {
+    if (jobID == null){return 1;}
+    
     let url = "http://thor.jobhuntapi/api/job/byID/" + jobID
     
     const response = await fetch(url,
