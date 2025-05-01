@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Job } from "../classes/Job"
+import { Job } from "../classes/Job.ts"
+import { fetchjobByID } from "../functions/fetchjob.ts";
 
 export function JobUpdatePageFunc(){
 
@@ -17,27 +18,9 @@ export function JobUpdatePageFunc(){
 
     useEffect(() => {
         const fetchJob = async () => {
-            let url = "http://thor.jobhuntapi/api/job/byID/" + jobID
             
             try{
-                const response = await fetch(url,
-                {
-                    method: 'GET',
-                    headers: {'Content-Type': 'applicaiton/json'}
-                }
-                )
-                if (!response.ok) {throw new Error(`HTTP error! status: ${response.status}`);}
-                const result = await response.json();
-                
-                const j = new Job(
-                    result.JobID, 
-                    result.CompanyName,
-                    result.CompanyURL,
-                    result.JobTitle,
-                    result.JobDescription,
-                    result.State,
-                    result.City
-                );
+                const j = await fetchjobByID(jobID)
                 setjob(j);
                 setloading(false);
             } catch (error) { seterror(error.message) } finally { setloading(false); }
@@ -124,17 +107,25 @@ export function JobUpdatePageFunc(){
         <div>
             <label>JobID: {jobID}</label><br/>
             <label>{job.JobTitle}</label><br/>
-                <label>{job.City} {job.State}</label>
-                <button onClick={editCityState}>Edit Location</button><br/>
-                <input className="cityinput" type="text" hidden={editlocationhidden} placeholder={job.City}/>
-                <input className="stateinput" type="text" hidden={editlocationhidden} placeholder={job.State}/>
-                <button className="submitlocationbutton" hidden={editlocationhidden} onClick={updateLocation}>Submit</button><br/>
+            
+            <label>{job.City} {job.State}</label>
+            <button onClick={editCityState}>Edit Location</button><br/>
+            <input className="cityinput" type="text" hidden={editlocationhidden} placeholder={job.City}/>
+            <input className="stateinput" type="text" hidden={editlocationhidden} placeholder={job.State}/>
+            <button className="submitlocationbutton" 
+                hidden={editlocationhidden} onClick={updateLocation}>Submit</button><br/>
+            
+            <label>Worksite</label>
+
             <label>{job.CompanyName}</label><br/><br/>
-                <label>Job Description:</label><br/><br/>
-                <text>{job.JobDescription}</text><br/>
-                <button onClick={editDescription}>Edit Description</button><br/>
-                <input className="descriptioninput" type="text" hidden={editdescriptionhidden} placeholder={job.JobDescription}/>
-                <button className="submitdescriptionbutton" hidden={editdescriptionhidden} onClick={updateDescription}>Submit</button>
+            
+            <label>Job Description:</label><br/><br/>
+            <text>{job.JobDescription}</text><br/>
+            <button onClick={editDescription}>Edit Description</button><br/>
+            <input className="descriptioninput" type="text" hidden={editdescriptionhidden} placeholder={job.JobDescription}/>
+            <button className="submitdescriptionbutton" 
+                hidden={editdescriptionhidden} onClick={updateDescription}>Submit</button>
+
         </div>
     )
 }
