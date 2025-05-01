@@ -1,8 +1,7 @@
-import { Home } from "./components/Home";
-import { AddJob } from "./components/AddJob";
+import { Home } from "./pages/Home";
+import { AddJob } from "./pages/AddJob";
 import React from "react";
-// import { JobUpdatePage } from "./components/JobUpdatePage";
-import { JobUpdatePageFunc } from "./components/JobUpdatePageFunc";
+import { JobUpdatePageFunc } from "./pages/JobUpdatePageFunc";
 
 
 const AppRoutes = [
