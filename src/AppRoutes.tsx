@@ -1,13 +1,13 @@
-import { Home } from "./pages/Home";
-import { AddJob } from "./pages/AddJob";
+import { Home } from "./pages/Home.tsx";
+import { AddJob } from "./pages/AddJob.jsx";
 import React from "react";
-import { JobUpdatePageFunc } from "./pages/JobUpdatePageFunc";
+import { JobUpdatePageFunc } from "./pages/JobUpdatePageFunc.tsx";
 
 
 const AppRoutes = [
   {
     index: true,
-    element: <Home />
+    element: <Home/>
   },
   {
     path: '/add-job',
