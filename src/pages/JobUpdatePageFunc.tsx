@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Job } from "../classes/Job.ts"
 import { fetchjobByID } from "../functions/fetchjob.ts";
 import { nulljob } from "../functions/nulljob.ts";
+import { PostLocation, PostDescription, PostSiteFoundOn } from "../functions/updatejob.ts";
 
 export function JobUpdatePageFunc(){
 
@@ -16,17 +17,18 @@ export function JobUpdatePageFunc(){
 
     const [city, setcity] = useState('')
     const [state, setstate] = useState('')
+    const [sitefoundon, setsitefoundon] = useState('')
     const [description, setdescription] = useState('')
 
     const [editdescriptionhidden, setdescriptionhidden] = useState(true)
+    const [editSiteFoundOnHidden, seteditsitefoundonhidden] = useState(true)
     const [editlocationhidden, seteditlocationhidden] = useState(true)
 
     useEffect(() => {
         const fetchJob = async () => {
             
             try{
-                const j: Job | 1 = await fetchjobByID(jobID) as Job
-                // const [job, setjob] = useState({j})
+                const j: Job = await fetchjobByID(jobID) as Job
                 setjob(j);
                 setloading(false);
             } catch (error) { seterror(error.message) } finally { setloading(false); }
@@ -34,77 +36,29 @@ export function JobUpdatePageFunc(){
         fetchJob();
     });
 
-    const editCityState = () => {
-        if ( editlocationhidden === false ){ seteditlocationhidden(true); }
-        else { seteditlocationhidden(false);}
-    }
     const updateLocation = async () => {
-        // let doc = Document;
-        // const city = doc.querySelector('.cityinput').value;
-        // const state = doc.querySelector('.stateinput').value;
 
         if (!city || !state) {
             alert("City and State cannot be empty.");
             return;
         }
-        const url = "http://thor.jobhuntapi/api/job/updatelocation";
-        const payload = {
-            ID: jobID,
-            City: city,
-            State: state
-        };
         try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            PostLocation(job.ID, city, state);
         } catch (error) {
-            alert(`Failed to update location: ${error.message}`);
-        }
+                alert(`Failed to update location: ${error.message}`);
+            }
         alert("Location updated successfully!");
         seteditlocationhidden(true);
     }
-
-    const editDescription = () => {
-        if(editdescriptionhidden === false){ setdescriptionhidden(true); }
-        else{ setdescriptionhidden(false); }
-    }
-
-    function worksite()
-    {
-        if(job.Remote){return "Remote"}
-        else if(job.Hybrid){return "Hybrid"}
-        else if (job.Onsite) {return "Onsite"}
-    }
-    function responded()
-    {
-        if(job.Responded){return "Yes"}
-        else { return "No"}
-    }
-
     const updateDescription = async () => {
-        // const description = document.querySelector('.descriptioninput').value;
 
         if (!description) {
             alert("Description cannot be empty.");
             return;
         }
 
-        const url = "http://thor.jobhuntapi/api/job/updatedescription";
-        const payload = {
-            ID: jobID,
-            JobDescription: description
-        };
         try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
+            const response = await PostDescription(job.ID, description);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -114,10 +68,52 @@ export function JobUpdatePageFunc(){
             alert(`Failed to update description: ${error.message}`);
         }
     }
+    const updateSiteFoundOn = async () => {
+        if (!sitefoundon){
+            alert("Please select a site that this job was found on before hitting submit.")
+        }
+
+        try {
+            const response = await PostSiteFoundOn(job.ID, sitefoundon);
+            if(!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            alert("Site Found On updated successfully!");
+            seteditsitefoundonhidden(true);
+        } catch (error) {
+            alert(`Failed to update site found on: ${error.message}`);
+        }
+    }
+
+    const editCityState = () => {
+        if ( editlocationhidden === false ){ seteditlocationhidden(true); }
+        else { seteditlocationhidden(false);}
+    }
+
+    const editSiteFoundOn = () => {
+        if ( editSiteFoundOnHidden ) { seteditsitefoundonhidden(false); }
+        else { seteditsitefoundonhidden(true); }
+    }
+
+    const editDescription = () => {
+        if(editdescriptionhidden === false){ setdescriptionhidden(true); }
+        else{ setdescriptionhidden(false); }
+    }
+
+    function worksite(){
+        if(job.Remote){return "Remote"}
+        else if(job.Hybrid){return "Hybrid"}
+        else if (job.Onsite) {return "Onsite"}
+    }
+    function responded(){
+        if(job.Responded){return "Yes"}
+        else { return "No"}
+    }
 
     const handlecitychange = (event) => { setcity(event.target.value); }
     const handlestatechange = (event) => { setstate(event.target.value); }
     const handledescriptionchange = (event) => { setdescription(event.target.value); }
+    const handlesitefoundonchange = (event) => {  setsitefoundon(event.target.value); }
 
 
     if (loading){
@@ -145,14 +141,30 @@ export function JobUpdatePageFunc(){
             
             <label>Responded:  {responded()}</label><br/>
             
-            <label>Site Found On:  {job.SiteFoundOn}</label><br/><br/>
+            <label>Site Found On:  {job.SiteFoundOn}</label>
+            <button onClick={editSiteFoundOn}>Edit</button><br/><br/>
+                <div hidden={editSiteFoundOnHidden}>
+                    <input type="radio" id="LinkedIn" name="SiteFoundOn" value='LinkedIn' 
+                    onChange={handlesitefoundonchange}/>
+                    <label htmlFor="LinkedIn">LinkedIn</label><br/>
+
+                    <input type="radio" id="Indeed" name="SiteFoundOn" value="Indeed"
+                    onChange={handlesitefoundonchange}/>
+                    <label htmlFor="Indeed">Indeed</label><br/>
+
+                    <input type="radio" id="Dice" name="SiteFoundOn" value="Dice"
+                    onChange={handlesitefoundonchange}/>
+                    <label htmlFor="Dice">Dice</label><br/>
+                    <button onClick={updateSiteFoundOn}>Submit</button>
+                </div><br/>
 
             <label>{job.CompanyName}</label><br/><br/>
             
             <label>Job Description:</label><br/><br/>
-            <text>{job.JobDescription}</text><br/>
+            <p>{job.JobDescription}</p><br/>
             <button onClick={editDescription}>Edit Description</button><br/>
-            <input className="descriptioninput" type="text" hidden={editdescriptionhidden} placeholder={job.JobDescription}/>
+            <input className="descriptioninput" type="text" value={description} onChange={handledescriptionchange}
+                hidden={editdescriptionhidden} placeholder={job.JobDescription}/>
             <button className="submitdescriptionbutton" 
                 hidden={editdescriptionhidden} onClick={updateDescription}>Submit</button>
 
