@@ -37,12 +37,13 @@ export class AddJobForm extends Component {
             Hybrid: false,
             Onsite: false,
             ApplicationDate: year + "-" + month + "-" + day,
-            ApplicationTime: year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":00"
+            ApplicationTime: year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":00",
+            SiteFoundOn: ''
         };
         
         this.FieldNames = ["CompanyName", "JobTitle", "State", "City",
                     "Remote", "Hybrid", "Onsite", "ApplicationDate",
-                    "ApplicationTime"];
+                    "ApplicationTime", "SiteFoundOn"];
 
     }
     
@@ -90,9 +91,9 @@ export class AddJobForm extends Component {
     {
         event.preventDefault();
         const { CompanyName, JobTitle, State, City, Remote,
-            Hybrid, Onsite, ApplicationDate, ApplicationTime } = this.state;
+            Hybrid, Onsite, ApplicationDate, ApplicationTime, SiteFoundOn } = this.state;
         const formData = { CompanyName, JobTitle, State, City, Remote,
-            Hybrid, Onsite, ApplicationDate, ApplicationTime };
+            Hybrid, Onsite, ApplicationDate, ApplicationTime, SiteFoundOn};
 
         console.log(JSON.stringify(formData));
         
@@ -121,7 +122,7 @@ export class AddJobForm extends Component {
                     
                     <label htmlFor="JobTitle">Job Title</label><br/>
                     <input type="text" placeholder="Job Title" id="JobTitle" name={this.FieldNames[1]}
-                    value={this.state.JobTitle} onChange={this.handleInputChange}/><br/>
+                    value={this.state.JobTitle} onChange={this.handleInputChange}/><br/><br/>
                     
                     <label htmlFor="State">State</label><br/>
                     <input type="text" placeholder="State" id="State" name={this.FieldNames[2]}
@@ -129,7 +130,7 @@ export class AddJobForm extends Component {
 
                     <label htmlFor="City">City</label><br/>
                     <input type="text" placeholder="City" id="City" name={this.FieldNames[3]}
-                    value={this.state.City} onChange={this.handleInputChange}/><br/>
+                    value={this.state.City} onChange={this.handleInputChange}/><br/><br/>
                     
                     <input type="checkbox" id="Remote" name={this.FieldNames[4]}
                     value={this.state.Remote} onChange={this.setChecked}/>
@@ -141,7 +142,7 @@ export class AddJobForm extends Component {
                     
                     <input type="checkbox" id="Onsite" name={this.FieldNames[6]}
                     value={this.state.Onsite} onChange={this.setChecked}/>
-                    <label htmlFor="Onsite">Onsite</label><br/>
+                    <label htmlFor="Onsite">Onsite</label><br/><br/>
                     
                     <label htmlFor="ApplicationDate">Application Date</label><br/>
                     <input type="date" placeholder="Application Date" id="ApplicationDate" 
@@ -151,8 +152,19 @@ export class AddJobForm extends Component {
                     <label htmlFor="ApplicationTime">Application Time</label><br/>
                     <input type="datetime-local" placeholder="Application Time" id="ApplicationTime" 
                     name={this.FieldNames[8]}
-                    value={this.state.ApplicationTime} onChange={this.handleInputChange}/><br/>
-                    
+                    value={this.state.ApplicationTime} onChange={this.handleInputChange}/><br/><br/>
+
+                    <label>Site Found On:</label><br/>
+                    <input type="radio" id="LinkedIn" name={this.FieldNames[9]} value='LinkedIn'/>
+                    <label htmlFor="LinkedIn">LinkedIn</label><br/>
+
+                    <input type="radio" id="Indeed" name={this.FieldNames[9]} value="Indeed"/>
+                    <label htmlFor="Indeed">Indeed</label><br/>
+
+                    <input type="radio" id="Dice" name={this.FieldNames[9]} value="Dice"/>
+                    <label htmlFor="Dice">Dice</label><br/>
+
+                    <br/>
                     <input type="submit" value="Submit"/>
                 </form>
             </div>

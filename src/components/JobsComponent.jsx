@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import './JobsComponent.css'
 
 /**
  * Show all jobs applied to by querying the Jobhuntapi @ thor.jobhuntapi
