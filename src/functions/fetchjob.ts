@@ -1,8 +1,9 @@
 import { Job } from "../classes/Job.ts";
+import { JobJson } from "../dtos/JobJson.ts";
 
-export async function fetchjobByID(jobID: string | null)
+export async function fetchjobByID(jobID: string | null): Promise<Job | null>
 {
-    if (jobID == null){return 1;}
+    if (jobID == null){return null;}
     
     let url = "http://thor.jobhuntapi/api/job/byID/" + jobID
     
@@ -13,21 +14,8 @@ export async function fetchjobByID(jobID: string | null)
     }
     )
     if (!response.ok) {throw new Error(`HTTP error! status: ${response.status}`);}
-    const result = await response.json();
+    const result: JobJson = await response.json();
     
-    const j = new Job(
-        result.JobID, 
-        result.CompanyName,
-        result.CompanyURL,
-        result.JobTitle,
-        result.JobDescription,
-        result.State,
-        result.City,
-        result.Remote,
-        result.Hybrid,
-        result.Onsite,
-        result.Responded,
-        result.SiteFoundOn
-    );
+    const j = new Job(result);
     return j;
 }

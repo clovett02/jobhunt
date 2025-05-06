@@ -1,4 +1,4 @@
-import { fetchjobByID } from "../functions/fetchjob";
+import { JobJson } from "../dtos/JobJson";
 
 export class Job {
     ID: string;
@@ -16,32 +16,34 @@ export class Job {
     ApplicationTime: Date;
     ApplicationDay: string;
     Responded: boolean;
-    ResponseDate: DataTransfer;
+    ResponseDate: Date;
     ResponseTime: Date;
     ResponseDay: string;
     Denied: boolean;
     EasyApply: boolean;
     SiteFoundOn: string;
 
-
-    // constructor(ID: string){
-    //     this.ID = ID;
-    // }
-
-    constructor(ID:string, CompanyName:string, CompanyURL:string, JobTitle:string, 
-        JobDescription:string, State:string, City:string, Remote:boolean, Hybrid:boolean,
-        Onsite:boolean, Responded:boolean, SiteFoundOn:string){
-        this.ID = ID;
-        this.CompanyName = CompanyName;
-        this.CompanyURL = CompanyURL;
-        this.JobTitle = JobTitle;
-        this.JobDescription = JobDescription;
-        this.State = State;
-        this.City = City;
-        this.Remote = Remote;
-        this.Hybrid = Hybrid;
-        this.Onsite = Onsite;
-        this.Responded = Responded;
-        this.SiteFoundOn = SiteFoundOn;
+    constructor(job: JobJson){
+        this.ID = job.JobID;
+        this.CompanyName = job.CompanyName;
+        this.CompanyURL = job.CompanyURL;
+        this.JobTitle = job.JobTitle;
+        this.JobDescription = job.JobDescription;
+        this.State = job.State;
+        this.City = job.City;
+        this.Remote = job.Remote;
+        this.Hybrid = job.Hybrid;
+        this.Onsite = job.Onsite;
+        this.DatePosted = job.DatePosted;
+        this.ApplicationDate = job.ApplicationDate;
+        this.ApplicationTime = job.ApplicationTime;
+        this.ApplicationDay = job.ApplicationDay;     
+        this.Responded = job.Responded;
+        this.ResponseDate = job.ResponseDate;
+        this.ResponseTime = job.ResponseTime;
+        this.ResponseDay = job.ResponseDay;
+        this.Denied = job.Denied;
+        this.EasyApply = job.EasyApply;
+        this.SiteFoundOn = job.SiteFoundOn;
     }
 }

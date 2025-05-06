@@ -6,15 +6,20 @@ div.headarea {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-div.brand {
+div div.brand a {
   float: left;
-  white-space: normal;
   text-align: center;
+  text-decoration-line: none;
   width: 50%;
   font-size: 40px;
+  color: black;
 }
 
-div.links {
+div div.brand a:hover{
+  color: orange;
+}
+
+div div.links {
   display: inline;
   float: right;
   width: 50%;
@@ -22,24 +27,26 @@ div.links {
   text-align: center;
 }
 
-ul {
-  list-style: none;
+div div.links ul.navlist li a:hover {
+  color: orange;
 }
 
-li {
+/* div div ul.navlist {
+  list-style: none;
+} */
+
+div div.links ul.navlist li {
   display: inline;
   padding: 7px;
 }
 
-a {
+div div.links ul.navlist li a {
   text-decoration-line: none;
   color: black;
 }
 
-a:visited {
+div div ul.navlist li a:visited {
   color: black;
 }
 
-.links a:hover {
-  color: orange;
-}
+

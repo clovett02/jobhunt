@@ -1,5 +1,5 @@
 import React from 'react';
-import { JobsComponent } from '../components/JobsComponent.jsx';
+import { JobsComponent } from '../components/JobsComponent.tsx';
 
 /**
  * Homepage
