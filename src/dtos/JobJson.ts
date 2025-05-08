@@ -1,24 +1,24 @@
 
 export type JobJson = {
-    id: string;
-    companyName: string;
-    companyUrl: string;
-    jobTitle: string;
-    jobDescription: string;
-    state: string;
-    city: string;
-    remote: boolean;
-    hybrid: boolean;
-    onsite: boolean;
-    datePosted: Date;
-    applicationDate: Date;
-    applicationTime: Date;
+    Id: string;
+    CompanyName: string;
+    CompanyUrl: string;
+    JobTitle: string;
+    JobDescription: string;
+    State: string;
+    City: string;
+    Remote: boolean;
+    Hybrid: boolean;
+    Onsite: boolean;
+    DatePosted: Date;
+    ApplicationDate: Date;
+    ApplicationTime: Date;
     // ApplicationDay: string;
-    responded: boolean;
-    responseDate: Date;
-    responseTime: Date;
+    Responded: boolean;
+    ResponseDate: Date;
+    ResponseTime: Date;
     // ResponseDay: string;
-    denied: boolean;
-    easyApply: boolean;
-    siteFoundOn: string;
+    Denied: boolean;
+    EasyApply: boolean;
+    SiteFoundOn: string;
 }
