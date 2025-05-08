@@ -34,7 +34,7 @@ export function JobUpdatePageFunc(){
             } catch (error) { seterror(error.message) } finally { setloading(false); }
         }
         fetchJob();
-    });
+    },[]);
 
     const updateLocation = async () => {
 

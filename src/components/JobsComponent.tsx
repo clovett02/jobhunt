@@ -17,7 +17,7 @@ export function JobsComponent(){
             setloading(false);
         }
         getjobs();
-    });
+    },[]);
 
 
     if (loading) {
