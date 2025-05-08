@@ -43,7 +43,7 @@ export function JobsComponent(){
                 </thead>
                 <tbody>
                 {jobs.map((job) => 
-                <JobComponent job={job}/>)}
+                <JobComponent key={job.ID} job={job}/>)}
                 </tbody>
             </table>
         </div>
