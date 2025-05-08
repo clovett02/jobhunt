@@ -17,13 +17,13 @@ export function JobComponent(props:{job:Job}){
     }
 
     return (
-        <tr className="tablerow">
+        <tr className="tablerow" key={job.ID}>
             <td>{job.CompanyName}</td>
             <td><a href={ReturnJobURL(job.ID)} className="joblink">{job.JobTitle}</a></td>
             <td>{job.City} {job.State}</td>
             <td>{RemoteHybridOnsitetoString(job.Remote, job.Hybrid, job.Onsite)}</td>
-            <td>{`${job.ApplicationDate}`}</td>
-            <td>{`${job.ApplicationTime}`}</td>
+            <td>{job.ApplicationDate.toDateString()}</td>
+            <td>{job.ApplicationTime.toTimeString()}</td>
             <td>{job.SiteFoundOn}</td>
             <td>{job.EasyApply}</td>
         </tr>
