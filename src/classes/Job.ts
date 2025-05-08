@@ -14,11 +14,11 @@ export class Job {
     DatePosted: Date;
     ApplicationDate: Date;
     ApplicationTime: Date;
-    ApplicationDay: string;
+    // ApplicationDay: string;
     Responded: boolean;
     ResponseDate: Date;
     ResponseTime: Date;
-    ResponseDay: string;
+    // ResponseDay: string;
     Denied: boolean;
     EasyApply: boolean;
     SiteFoundOn: string;
@@ -37,11 +37,11 @@ export class Job {
         this.DatePosted = job.DatePosted;
         this.ApplicationDate = job.ApplicationDate;
         this.ApplicationTime = job.ApplicationTime;
-        this.ApplicationDay = job.ApplicationDay;     
+        // this.ApplicationDay = job.ApplicationDay;     
         this.Responded = job.Responded;
         this.ResponseDate = job.ResponseDate;
         this.ResponseTime = job.ResponseTime;
-        this.ResponseDay = job.ResponseDay;
+        // this.ResponseDay = job.ResponseDay;
         this.Denied = job.Denied;
         this.EasyApply = job.EasyApply;
         this.SiteFoundOn = job.SiteFoundOn;

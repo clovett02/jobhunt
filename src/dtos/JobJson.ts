@@ -13,11 +13,11 @@ export type JobJson = {
     DatePosted: Date;
     ApplicationDate: Date;
     ApplicationTime: Date;
-    ApplicationDay: string;
+    // ApplicationDay: string;
     Responded: boolean;
     ResponseDate: Date;
     ResponseTime: Date;
-    ResponseDay: string;
+    // ResponseDay: string;
     Denied: boolean;
     EasyApply: boolean;
     SiteFoundOn: string;
