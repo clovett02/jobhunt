@@ -24,26 +24,26 @@ export class Job {
     SiteFoundOn: string;
 
     constructor(job: JobJson){
-        this.ID = job.JobID;
-        this.CompanyName = job.CompanyName;
-        this.CompanyURL = job.CompanyURL;
-        this.JobTitle = job.JobTitle;
-        this.JobDescription = job.JobDescription;
-        this.State = job.State;
-        this.City = job.City;
-        this.Remote = job.Remote;
-        this.Hybrid = job.Hybrid;
-        this.Onsite = job.Onsite;
-        this.DatePosted = job.DatePosted;
-        this.ApplicationDate = job.ApplicationDate;
-        this.ApplicationTime = job.ApplicationTime;
+        this.ID = job.id;
+        this.CompanyName = job.companyName;
+        this.CompanyURL = job.companyUrl;
+        this.JobTitle = job.jobTitle;
+        this.JobDescription = job.jobDescription;
+        this.State = job.state;
+        this.City = job.city;
+        this.Remote = job.remote;
+        this.Hybrid = job.hybrid;
+        this.Onsite = job.onsite;
+        this.DatePosted = new Date(job.datePosted);
+        this.ApplicationDate = new Date(job.applicationDate);
+        this.ApplicationTime = new Date(job.applicationTime);
         // this.ApplicationDay = job.ApplicationDay;     
-        this.Responded = job.Responded;
-        this.ResponseDate = job.ResponseDate;
-        this.ResponseTime = job.ResponseTime;
+        this.Responded = job.responded;
+        this.ResponseDate = job.responseDate;
+        this.ResponseTime = job.responseTime;
         // this.ResponseDay = job.ResponseDay;
-        this.Denied = job.Denied;
-        this.EasyApply = job.EasyApply;
-        this.SiteFoundOn = job.SiteFoundOn;
+        this.Denied = job.denied;
+        this.EasyApply = job.easyApply;
+        this.SiteFoundOn = job.siteFoundOn;
     }
 }
