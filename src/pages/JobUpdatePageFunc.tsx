@@ -11,16 +11,11 @@ export function JobUpdatePageFunc(){
     const urlParams = new URLSearchParams(queryString);
     const [jobID] = useState(urlParams.get('jobid'))
 
-    
-    const [job, setjob] = useState<Job>();
+    const [currentjob, setcurrentjob] = useState<Job>();
+    const [newjob, setnewjob] = useState<Job>();
+    const [pljob, setpljob] = useState<Job>();
     const [error, seterror] = useState("");
     const [loading, setloading] = useState(true);
-
-    const [city, setcity] = useState('');
-    const [state, setstate] = useState('');
-    const [sitefoundon, setsitefoundon] = useState('');
-    const [description, setdescription] = useState('');
-    const [companyurl, setcompanyurl] = useState('');
 
     const [editdescriptionhidden, setdescriptionhidden] = useState(true);
     const [editSiteFoundOnHidden, seteditsitefoundonhidden] = useState(true);
@@ -32,42 +27,46 @@ export function JobUpdatePageFunc(){
             
             try{
                 const j: Job = await fetchjobByID(jobID) as Job;
-                setjob(j);
-                setcity(j.City);
-                setstate(j.State);
-                setsitefoundon(j.SiteFoundOn);
-                setdescription(j.JobDescription);
-                setcompanyurl(j.CompanyURL)
+                setcurrentjob(j);
+                setnewjob(j);
                 setloading(false);
             } catch (error) { seterror(error.message) } finally { setloading(false); }
         }
         fetchJob();
-    },[jobID]);
+    },[jobID, pljob]);
+
+    // async function getJob(): Promise<Job> {
+    //     let j = new Job(null);
+    //     try{
+    //         j = await fetchjobByID(jobID);
+    //         setloading(false);
+    //     } catch (error) { 
+    //         seterror(error.message);
+    //     } finally { setloading(false); }
+    //     return j;
+    // }
 
     async function update(){
-        
-        if(job){
-            job.City = city;
-            job.State = state;
-            job.JobDescription = description;
-            job.SiteFoundOn = sitefoundon;
-            job.CompanyURL = companyurl;
-
+        if(newjob){
+            setloading(true);
+            setpljob(newjob)
+            const payloadjob = newjob;
             try {
-                await UpdateJob(job);
+                await UpdateJob(payloadjob);
             }
             catch (error) { console.log(error.message) }
+            finally { setloading(false); }
         }
     }
 
     async function deleteJ(){
-        if (job){
-            if(window.confirm(`Are you sure? ${job.JobTitle} will be deleted.` )){
-                await deleteJob(job.ID);
-                alert(`${job.JobTitle} was deleted.`);
+        if (currentjob){
+            if(window.confirm(`Are you sure? ${currentjob.JobTitle} will be deleted.` )){
+                await deleteJob(currentjob.ID);
+                alert(`${currentjob.JobTitle} was deleted.`);
             }
             else {
-                alert(`${job.JobTitle} was not deleted`);
+                alert(`${currentjob.JobTitle} was not deleted`);
             }
         }
         else {
@@ -96,27 +95,32 @@ export function JobUpdatePageFunc(){
     }
 
     function worksite(){
-        if (job){
-            if(job.Remote){return "Remote"}
-            else if(job.Hybrid){return "Hybrid"}
-            else if (job.Onsite) {return "Onsite"}
+        if (currentjob){
+            if(currentjob.Remote){return "Remote"}
+            else if(currentjob.Hybrid){return "Hybrid"}
+            else if (currentjob.Onsite) {return "Onsite"}
         }
 
     }
     function responded(){
-        if(job){
-            if(job.Responded){return "Yes"}
+        if(currentjob){
+            if(currentjob.Responded){return "Yes"}
             else { return "No"}
         }
 
     }
 
-    const handlecitychange = (event) => { setcity(event.target.value); }
-    const handlestatechange = (event) => { setstate(event.target.value); }
-    const handledescriptionchange = (event) => { setdescription(event.target.value); }
-    const handlesitefoundonchange = (event) => {  setsitefoundon(event.target.value); }
-    const handlecompanyurlchange = (event) => { setcompanyurl(event.target.value);}
+    const handlejobchange = (event) => {
+        if (currentjob && newjob){
+            const {name, value} = event.target;
+            setnewjob({...newjob, [name]: value});
+            
+            console.log(newjob);
+            console.log(name);
+            console.log(value);
+        }
 
+    }
 
     if (loading){
         return <p>Loading...</p>
@@ -124,51 +128,51 @@ export function JobUpdatePageFunc(){
     if (error){
         return <p>Error: {error}</p>
     }
-    else if (job)
+    else if (currentjob && newjob)
     {
     return (
-        <div key={job.ID}>
+        <div key={newjob.ID}>
             <label>JobID: {jobID}</label><button onClick={deleteJ}>Delete</button><br/>
-            <label className="CompanyName">{job.CompanyName}</label><br/>
-            <label className="JobTitle">{job.JobTitle}</label><br/>
+            <label className="CompanyName">{currentjob.CompanyName}</label><br/>
+            <label className="JobTitle">{currentjob.JobTitle}</label><br/>
             
-            <label>{job.City} {job.State}</label>
+            <label>{currentjob.City} {currentjob.State}</label>
             <button onClick={editCityState}>Edit Location</button><br/>
-            <input className="cityinput" type="text" value={city} onChange={handlecitychange}
-                hidden={editlocationhidden} placeholder={job.City}/>
-            <input className="stateinput" type="text" value={state} onChange={handlestatechange}
-                hidden={editlocationhidden} placeholder={job.State}/><br/>
+            <input className="cityinput" type="text" value={newjob.City} onChange={handlejobchange}
+                name="City" hidden={editlocationhidden} placeholder={currentjob.City}/>
+            <input className="stateinput" type="text" value={newjob.State} onChange={handlejobchange}
+                name="State" hidden={editlocationhidden} placeholder={currentjob.State}/><br/>
             
             <label>Worksite:  {worksite()}</label><br/>
             
             <label>Responded:  {responded()}</label><br/>
             
-            <label>Site Found On:  {job.SiteFoundOn}</label>
+            <label>Site Found On:  {currentjob.SiteFoundOn}</label>
             <button onClick={editSiteFoundOn}>Edit</button><br/><br/>
                 <div hidden={editSiteFoundOnHidden}>
                     <input type="radio" id="LinkedIn" name="SiteFoundOn" value='LinkedIn' 
-                    onChange={handlesitefoundonchange}/>
+                    onChange={handlejobchange}/>
                     <label htmlFor="LinkedIn">LinkedIn</label><br/>
 
                     <input type="radio" id="Indeed" name="SiteFoundOn" value="Indeed"
-                    onChange={handlesitefoundonchange}/>
+                    onChange={handlejobchange}/>
                     <label htmlFor="Indeed">Indeed</label><br/>
 
                     <input type="radio" id="Dice" name="SiteFoundOn" value="Dice"
-                    onChange={handlesitefoundonchange}/>
+                    onChange={handlejobchange}/>
                     <label htmlFor="Dice">Dice</label><br/>
                 </div><br/>
 
-            <label>Company URL: <a href={job.CompanyURL}>{job.CompanyURL}</a></label><button onClick={editCompanyUrl}>Edit</button><br/>
-            <input type="text" value={companyurl} onChange={handlecompanyurlchange}
-            hidden={editcompanyurlhidden} placeholder={job.CompanyURL}></input>
+            <label>Company URL: <a href={currentjob.CompanyURL}>{currentjob.CompanyURL}</a></label><button onClick={editCompanyUrl}>Edit</button><br/>
+            <input type="text" value={newjob.CompanyURL} onChange={handlejobchange}
+                name="CompanyURL" hidden={editcompanyurlhidden} placeholder={currentjob.CompanyURL}></input>
             <label>JobBoard URL: </label><br/><br/>
             
             <label>Job Description:</label><br/><br/>
-            <p>{job.JobDescription}</p><br/>
+            <p>{currentjob.JobDescription}</p><br/>
             <button onClick={editDescription}>Edit Description</button><br/>
-            <input className="descriptioninput" type="text" value={description} onChange={handledescriptionchange}
-                hidden={editdescriptionhidden} placeholder={job.JobDescription}/>
+            <input className="descriptioninput" type="text" value={newjob.JobDescription} onChange={handlejobchange}
+                name="JobDescription" hidden={editdescriptionhidden} placeholder={currentjob.JobDescription}/>
             <br/>
             <button onClick={update}>Update</button>
 
