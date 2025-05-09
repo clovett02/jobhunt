@@ -12,60 +12,60 @@ export function UpdateJob(job: Job | undefined){
 
 }
 
-export async function PostLocation(ID: string, city: string, state: string){
+// export async function PostLocation(ID: string, city: string, state: string){
     
-    const url = "http://thor.jobhuntapi/api/job/updatelocation";
-    const payload = {
-        ID: ID,
-        City: city,
-        State: state
-    };
+//     const url = "http://thor.jobhuntapi/api/job/updatelocation";
+//     const payload = {
+//         ID: ID,
+//         City: city,
+//         State: state
+//     };
 
-    try{
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);}
-    } catch (error) {
-            alert(`Failed to update location: ${error.message}`);
-        }
-}
+//     try{
+//         const response = await fetch(url, {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify(payload)
+//         });
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! status: ${response.status}`);}
+//     } catch (error) {
+//             alert(`Failed to update location: ${error.message}`);
+//         }
+// }
 
-export async function PostSiteFoundOn(ID: string, SiteFoundOn: string){
-    const url = "http://thor.jobhuntapi/api/job/updatesitefoundon";
-    const payload = {
-        ID: ID,
-        SiteFoundOn: SiteFoundOn
-    }
+// export async function PostSiteFoundOn(ID: string, SiteFoundOn: string){
+//     const url = "http://thor.jobhuntapi/api/job/updatesitefoundon";
+//     const payload = {
+//         ID: ID,
+//         SiteFoundOn: SiteFoundOn
+//     }
 
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    });
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return response;
-}
+//     const response = await fetch(url, {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(payload)
+//     });
+//     if (!response.ok) {
+//         throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+//     return response;
+// }
 
-export async function PostDescription(ID: string, description: string){
-    const url = "http://thor.jobhuntapi/api/job/updatedescription";
-    const payload = {
-        ID: ID,
-        JobDescription: description
-    };
+// export async function PostDescription(ID: string, description: string){
+//     const url = "http://thor.jobhuntapi/api/job/updatedescription";
+//     const payload = {
+//         ID: ID,
+//         JobDescription: description
+//     };
 
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    });
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return response;
-}
+//     const response = await fetch(url, {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(payload)
+//     });
+//     if (!response.ok) {
+//         throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+//     return response;
+// }

@@ -1,6 +1,6 @@
 
 export type JobJson = {
-    Id: string;
+    Id: number;
     CompanyName: string;
     CompanyUrl: string;
     JobTitle: string;

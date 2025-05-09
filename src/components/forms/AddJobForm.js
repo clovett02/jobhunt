@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Job } from "../../classes/Job.ts";
 
 
 /**
@@ -54,7 +55,6 @@ export class AddJobForm extends Component {
         ({
             [name]:checked
         });
-        console.log("The checkbox was toggled " + name + ": " + checked);
     }
 
     handleInputChange = event => 
@@ -90,24 +90,20 @@ export class AddJobForm extends Component {
     handleSubmit = event =>
     {
         event.preventDefault();
-        const { CompanyName, JobTitle, State, City, Remote,
-            Hybrid, Onsite, ApplicationDate, ApplicationTime, SiteFoundOn } = this.state;
-        const formData = { CompanyName, JobTitle, State, City, Remote,
-            Hybrid, Onsite, ApplicationDate, ApplicationTime, SiteFoundOn};
 
-        console.log(JSON.stringify(formData));
+        let j = new Job();
+        j = this.state;
         
         fetch('http://thor.jobhuntapi/api/job/addjob',
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify(formData)
+            body: JSON.stringify(j)
             
         })
         .then(response => response.json())
         .then(data => {
         console.log('Form data sent:', data);
-        // Handle any success or error response from the API
         })
         .catch(error => console.error('Error sending form data:', error));
     }
@@ -155,13 +151,16 @@ export class AddJobForm extends Component {
                     value={this.state.ApplicationTime} onChange={this.handleInputChange}/><br/><br/>
 
                     <label>Site Found On:</label><br/>
-                    <input type="radio" id="LinkedIn" name={this.FieldNames[9]} value='LinkedIn'/>
+                    <input type="radio" id="LinkedIn" name={this.FieldNames[9]} value='LinkedIn'
+                    onChange={this.handleInputChange}/>
                     <label htmlFor="LinkedIn">LinkedIn</label><br/>
 
-                    <input type="radio" id="Indeed" name={this.FieldNames[9]} value="Indeed"/>
+                    <input type="radio" id="Indeed" name={this.FieldNames[9]} value="Indeed"
+                    onChange={this.handleInputChange}/>
                     <label htmlFor="Indeed">Indeed</label><br/>
 
-                    <input type="radio" id="Dice" name={this.FieldNames[9]} value="Dice"/>
+                    <input type="radio" id="Dice" name={this.FieldNames[9]} value="Dice"
+                    onChange={this.handleInputChange}/>
                     <label htmlFor="Dice">Dice</label><br/>
 
                     <br/>

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Job } from "../classes/Job.ts"
 import { fetchjobByID } from "../functions/fetchjob.ts";
-// import { PostLocation, PostDescription, PostSiteFoundOn, UpdateJob } from "../functions/updatejob.ts";
 import { UpdateJob } from "../functions/updatejob.ts";
+import '../css/JobUpdatePage.css'
+import { deleteJob } from "../functions/deletejob.ts";
 
 export function JobUpdatePageFunc(){
 
@@ -15,14 +16,16 @@ export function JobUpdatePageFunc(){
     const [error, seterror] = useState("");
     const [loading, setloading] = useState(true);
 
-    const [city, setcity] = useState('')
-    const [state, setstate] = useState('')
-    const [sitefoundon, setsitefoundon] = useState('')
-    const [description, setdescription] = useState('')
+    const [city, setcity] = useState('');
+    const [state, setstate] = useState('');
+    const [sitefoundon, setsitefoundon] = useState('');
+    const [description, setdescription] = useState('');
+    const [companyurl, setcompanyurl] = useState('');
 
-    const [editdescriptionhidden, setdescriptionhidden] = useState(true)
-    const [editSiteFoundOnHidden, seteditsitefoundonhidden] = useState(true)
-    const [editlocationhidden, seteditlocationhidden] = useState(true)
+    const [editdescriptionhidden, setdescriptionhidden] = useState(true);
+    const [editSiteFoundOnHidden, seteditsitefoundonhidden] = useState(true);
+    const [editlocationhidden, seteditlocationhidden] = useState(true);
+    const [editcompanyurlhidden, seteditcompanyurl] = useState(true);
 
     useEffect(() => {
         const fetchJob = async () => {
@@ -36,57 +39,6 @@ export function JobUpdatePageFunc(){
         fetchJob();
     },[jobID, city, state, sitefoundon, description]);
 
-    // const updateLocation = async () => {
-
-    //     if (!city || !state) {
-    //         alert("City and State cannot be empty.");
-    //         return;
-    //     }
-    //     try {
-    //         PostLocation(job.ID, city, state);
-    //     } catch (error) {
-    //             alert(`Failed to update location: ${error.message}`);
-    //         }
-    //     alert("Location updated successfully!");
-    //     seteditlocationhidden(true);
-    // }
-
-    // const updateDescription = async () => {
-
-    //     if (!description) {
-    //         alert("Description cannot be empty.");
-    //         return;
-    //     }
-
-    //     try {
-    //         const response = await PostDescription(job.ID, description);
-    //         if (!response.ok) {
-    //             throw new Error(`HTTP error! status: ${response.status}`);
-    //         }
-    //         alert("Description updated successfully!");
-    //         setdescriptionhidden(true);
-    //     } catch (error) {
-    //         alert(`Failed to update description: ${error.message}`);
-    //     }
-    // }
-
-    // const updateSiteFoundOn = async () => {
-    //     if (!sitefoundon){
-    //         alert("Please select a site that this job was found on before hitting submit.")
-    //     }
-
-    //     try {
-    //         const response = await PostSiteFoundOn(job.ID, sitefoundon);
-    //         if(!response.ok) {
-    //             throw new Error(`HTTP error! status: ${response.status}`);
-    //         }
-    //         alert("Site Found On updated successfully!");
-    //         seteditsitefoundonhidden(true);
-    //     } catch (error) {
-    //         alert(`Failed to update site found on: ${error.message}`);
-    //     }
-    // }
-
     async function update(){
         
         if(job){
@@ -94,11 +46,27 @@ export function JobUpdatePageFunc(){
             job.State = state;
             job.JobDescription = description;
             job.SiteFoundOn = sitefoundon;
+            job.CompanyURL = companyurl;
 
             try {
                 await UpdateJob(job);
             }
             catch (error) { console.log(error.message) }
+        }
+    }
+
+    async function deleteJ(){
+        if (job){
+            if(window.confirm(`Are you sure? ${job.JobTitle} will be deleted.` )){
+                await deleteJob(job.ID);
+                alert(`${job.JobTitle} was deleted.`);
+            }
+            else {
+                alert(`${job.JobTitle} was not deleted`);
+            }
+        }
+        else {
+            alert(`Job object is currently undefined.`);
         }
     }
 
@@ -115,6 +83,11 @@ export function JobUpdatePageFunc(){
     const editDescription = () => {
         if(editdescriptionhidden === false){ setdescriptionhidden(true); }
         else{ setdescriptionhidden(false); }
+    }
+
+    const editCompanyUrl = () => {
+        if(editcompanyurlhidden){ seteditcompanyurl(false);}
+        else { seteditcompanyurl(true);}
     }
 
     function worksite(){
@@ -137,6 +110,7 @@ export function JobUpdatePageFunc(){
     const handlestatechange = (event) => { setstate(event.target.value); }
     const handledescriptionchange = (event) => { setdescription(event.target.value); }
     const handlesitefoundonchange = (event) => {  setsitefoundon(event.target.value); }
+    const handlecompanyurlchange = (event) => { setcompanyurl(event.target.value);}
 
 
     if (loading){
@@ -149,17 +123,16 @@ export function JobUpdatePageFunc(){
     {
     return (
         <div key={job.ID}>
-            <label>JobID: {jobID}</label><br/>
-            <label>{job.JobTitle}</label><br/>
+            <label>JobID: {jobID}</label><button onClick={deleteJ}>Delete</button><br/>
+            <label className="CompanyName">{job.CompanyName}</label><br/>
+            <label className="JobTitle">{job.JobTitle}</label><br/>
             
             <label>{job.City} {job.State}</label>
             <button onClick={editCityState}>Edit Location</button><br/>
             <input className="cityinput" type="text" value={city} onChange={handlecitychange}
                 hidden={editlocationhidden} placeholder={job.City}/>
             <input className="stateinput" type="text" value={state} onChange={handlestatechange}
-                hidden={editlocationhidden} placeholder={job.State}/>
-            <button className="submitlocationbutton" 
-                hidden={editlocationhidden} onClick={update}>Submit</button><br/>
+                hidden={editlocationhidden} placeholder={job.State}/><br/>
             
             <label>Worksite:  {worksite()}</label><br/>
             
@@ -179,18 +152,20 @@ export function JobUpdatePageFunc(){
                     <input type="radio" id="Dice" name="SiteFoundOn" value="Dice"
                     onChange={handlesitefoundonchange}/>
                     <label htmlFor="Dice">Dice</label><br/>
-                    <button onClick={update}>Submit</button>
                 </div><br/>
 
-            <label>{job.CompanyName}</label><br/><br/>
+            <label>Company URL: <a href={job.CompanyURL}>{job.CompanyURL}</a></label><button onClick={editCompanyUrl}>Edit</button><br/>
+            <input type="text" value={companyurl} onChange={handlecompanyurlchange}
+            hidden={editcompanyurlhidden} placeholder={job.CompanyURL}></input>
+            <label>JobBoard URL: </label><br/><br/>
             
             <label>Job Description:</label><br/><br/>
             <p>{job.JobDescription}</p><br/>
             <button onClick={editDescription}>Edit Description</button><br/>
             <input className="descriptioninput" type="text" value={description} onChange={handledescriptionchange}
                 hidden={editdescriptionhidden} placeholder={job.JobDescription}/>
-            <button className="submitdescriptionbutton" 
-                hidden={editdescriptionhidden} onClick={update}>Submit</button>
+            <br/>
+            <button onClick={update}>Update</button>
 
         </div>
     )}
