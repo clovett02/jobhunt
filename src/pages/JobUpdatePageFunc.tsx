@@ -33,11 +33,16 @@ export function JobUpdatePageFunc(){
             try{
                 const j: Job = await fetchjobByID(jobID) as Job;
                 setjob(j);
+                setcity(j.City);
+                setstate(j.State);
+                setsitefoundon(j.SiteFoundOn);
+                setdescription(j.JobDescription);
+                setcompanyurl(j.CompanyURL)
                 setloading(false);
             } catch (error) { seterror(error.message) } finally { setloading(false); }
         }
         fetchJob();
-    },[jobID, city, state, sitefoundon, description]);
+    },[jobID]);
 
     async function update(){
         
