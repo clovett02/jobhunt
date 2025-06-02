@@ -8,6 +8,6 @@ RUN npm run build
 
 FROM node:24-alpine
 WORKDIR /App
-COPY --from=build /App/build/ .
+COPY --from=build /App/dist/ .
 RUN npm install -g serve
 CMD [ "serve", "-s", ".", "-l", "5000"]

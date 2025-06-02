@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect} from "react";
+import { useState, useEffect} from "react";
 import { Job } from "../classes/Job";
 import { fetchjobs } from "../functions/fetchjobs.ts";
 import '../css/components/JobsComponent.css'

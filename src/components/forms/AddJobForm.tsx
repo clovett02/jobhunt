@@ -1,6 +1,5 @@
-import { useState, useEffect, type ChangeEvent, Children } from "react";
+import { useState, useEffect, type ChangeEvent } from "react";
 import { Job } from "../../classes/Job.ts";
-import type { JobJson } from "../../dtos/JobJson.ts";
 import type { JobFormPostType } from "../../interfaces/JobFormPost.ts";
 /**
  * Form for adding submitting job to database.
