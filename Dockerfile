@@ -1,15 +1,13 @@
-FROM node:14-alpine
+FROM node:24-alpine as build
 
 WORKDIR /App
-
-# ENV PATH /app/node_modules/.bin:$PATH
-
-COPY . .
-
-# RUN apt update
-RUN npm install -g serve
+COPY package*.json .
 RUN npm install
+COPY . .
 RUN npm run build
 
+FROM node:24-alpine
+WORKDIR /App
+COPY --from=build /App/build/ .
+RUN npm install -g serve
 CMD [ "serve", "-s", "build", "-l", "5000"]
-# CMD [ "npm", "start" ]
