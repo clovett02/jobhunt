@@ -143,12 +143,12 @@ export function AddJobForm() {
                         <label htmlFor="ApplicationDate">Application Date</label><br/>
                         <input type="date" placeholder="Application Date" id="ApplicationDate" 
                         name={FieldNames[7]}
-                        value={job.ApplicationDate.toDateString()} onChange={handleInputChange}/><br/>
+                        value={job.ApplicationDate} onChange={handleInputChange}/><br/>
                         
                         <label htmlFor="ApplicationTime">Application Time</label><br/>
                         <input type="datetime-local" placeholder="Application Time" id="ApplicationTime" 
                         name={FieldNames[8]}
-                        value={job.ApplicationTime.toDateString()} onChange={handleInputChange}/><br/><br/>
+                        value={job.ApplicationTime} onChange={handleInputChange}/><br/><br/>
 
                         <label>Site Found On:</label><br/>
                         <input type="radio" id="LinkedIn" name={FieldNames[9]} value='LinkedIn'
