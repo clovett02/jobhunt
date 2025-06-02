@@ -1,31 +1,31 @@
-import { JobJson } from "../dtos/JobJson";
-// import { AddJobForm } from "../components/forms/AddJobForm";
+import type { JobJson } from "../dtos/JobJson";
+import type { JobFormPostType } from "../interfaces/JobFormPost";
 
 export class Job {
-    ID: number;
+    ID?: number;
     CompanyName: string;
-    CompanyURL: string;
+    CompanyURL?: string;
     JobTitle: string;
-    JobDescription: string;
+    JobDescription?: string;
     State: string;
     City: string;
     Remote: boolean;
     Hybrid: boolean;
     Onsite: boolean;
-    DatePosted: Date;
+    DatePosted?: Date;
     ApplicationDate: Date;
     ApplicationTime: Date;
     // ApplicationDay: string;
-    Responded: boolean;
-    ResponseDate: Date;
-    ResponseTime: Date;
+    Responded?: boolean;
+    ResponseDate?: Date;
+    ResponseTime?: Date;
     // ResponseDay: string;
-    Denied: boolean;
-    EasyApply: boolean;
+    Denied?: boolean;
+    EasyApply?: boolean;
     SiteFoundOn: string;
 
-    constructor(job: JobJson | null){
-        if(job){
+    constructor(job: JobJson | JobFormPostType){
+        if("Id" in job){
             this.ID = job.Id;
             this.CompanyName = job.CompanyName;
             this.CompanyURL = job.CompanyUrl;
@@ -47,6 +47,17 @@ export class Job {
             this.Denied = job.Denied;
             this.EasyApply = job.EasyApply;
             this.SiteFoundOn = job.SiteFoundOn;
+        } else {
+            this.CompanyName = job.CompanyName;
+            this.JobTitle = job.JobTitle;
+            this.State = job.State;
+            this.City = job.City;
+            this.Remote = job.Remote;
+            this.Hybrid = job.Hybrid;
+            this.Onsite = job.Onsite;
+            this.ApplicationDate = new Date(job.ApplicationDate);
+            this.ApplicationTime = new Date(job.ApplicationTime);
+            this.SiteFoundOn = job.SiteFoundOn;            
         }
     }
 }

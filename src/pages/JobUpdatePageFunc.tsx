@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, type ChangeEvent } from "react";
 import { Job } from "../classes/Job.ts"
 import { fetchjobByID } from "../functions/fetchjob.ts";
 import { UpdateJob } from "../functions/updatejob.ts";
@@ -13,7 +13,7 @@ export function JobUpdatePageFunc(){
 
     const [currentjob, setcurrentjob] = useState<Job>();
     const [newjob, setnewjob] = useState<Job>();
-    const [pljob, setpljob] = useState<Job>();
+    const [payloadjob, setpayloadjob] = useState<Job>();
     const [error, seterror] = useState("");
     const [loading, setloading] = useState(true);
 
@@ -30,10 +30,10 @@ export function JobUpdatePageFunc(){
                 setcurrentjob(j);
                 setnewjob(j);
                 setloading(false);
-            } catch (error) { seterror(error.message) } finally { setloading(false); }
+            } catch (error: any) { seterror(error.message) } finally { setloading(false); }
         }
         fetchJob();
-    },[jobID, pljob]);
+    },[jobID, payloadjob]);
 
     // async function getJob(): Promise<Job> {
     //     let j = new Job(null);
@@ -49,12 +49,12 @@ export function JobUpdatePageFunc(){
     async function update(){
         if(newjob){
             setloading(true);
-            setpljob(newjob)
+            setpayloadjob(newjob)
             const payloadjob = newjob;
             try {
                 await UpdateJob(payloadjob);
             }
-            catch (error) { console.log(error.message) }
+            catch (error: any) { console.log(error.message) }
             finally { setloading(false); }
         }
     }
@@ -62,8 +62,10 @@ export function JobUpdatePageFunc(){
     async function deleteJ(){
         if (currentjob){
             if(window.confirm(`Are you sure? ${currentjob.JobTitle} will be deleted.` )){
-                await deleteJob(currentjob.ID);
-                alert(`${currentjob.JobTitle} was deleted.`);
+                if(currentjob.ID){
+                    await deleteJob(currentjob.ID);
+                    alert(`${currentjob.JobTitle} was deleted.`);                    
+                }
             }
             else {
                 alert(`${currentjob.JobTitle} was not deleted`);
@@ -110,16 +112,11 @@ export function JobUpdatePageFunc(){
 
     }
 
-    const handlejobchange = (event) => {
+    const handlejobchange = (event: ChangeEvent) => {
         if (currentjob && newjob){
-            const {name, value} = event.target;
+            const {name, value} = event.target as HTMLInputElement;
             setnewjob({...newjob, [name]: value});
-            
-            console.log(newjob);
-            console.log(name);
-            console.log(value);
         }
-
     }
 
     if (loading){

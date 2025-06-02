@@ -1,5 +1,5 @@
 import { Job } from "../classes/Job.ts";
-import { JobJson } from "../dtos/JobJson.ts";
+import type { JobJson } from "../dtos/JobJson.ts";
 
 /**
  * Converts a Json array into an array of {Job} objects.

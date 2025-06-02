@@ -1,12 +1,12 @@
 import { Home } from "./pages/Home.tsx";
-import { AddJob } from "./pages/AddJob.jsx";
-import React from "react";
+import { AddJob } from "./pages/AddJob.tsx";
 import { JobUpdatePageFunc } from "./pages/JobUpdatePageFunc.tsx";
 
 
-const AppRoutes = [
+export const AppRoutes = [
   {
     index: true,
+    path: '/',
     element: <Home/>
   },
   {
@@ -19,4 +19,3 @@ const AppRoutes = [
   }
 ];
 
-export default AppRoutes;

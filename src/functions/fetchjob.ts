@@ -1,5 +1,5 @@
 import { Job } from "../classes/Job.ts";
-import { JobJson } from "../dtos/JobJson.ts";
+import type { JobJson } from "../dtos/JobJson.ts";
 
 export async function fetchjobByID(jobID: string | null): Promise<Job | null>
 {

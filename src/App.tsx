@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AppRoutes from './AppRoutes.tsx';
-import { Layout } from './components/Layout';
 
-export default class App extends Component {
-  static displayName = App.name;
+// import './App.css'
+import { NavMenu } from './components/NavMenu.tsx';
+import { BrowserRouter, Routes, Route } from 'react-router'
+import { AppRoutes } from './AppRoutes'
 
-  render() {
-    return (
-      <Layout>
+function App() {
+
+  return (
+    <div className='App'>
+      <NavMenu/>
+      <BrowserRouter>
         <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, path, ...rest } = route;
-            return <Route key={index} path={path} {...rest} element={element} />;
-          })}
+          {AppRoutes.map((r) =>
+          <Route path={r.path} element={r.element} />)}
         </Routes>
-      </Layout>
-    );
-  }
+      </BrowserRouter>
+    </div>
+  )
 }
+
+export default App
