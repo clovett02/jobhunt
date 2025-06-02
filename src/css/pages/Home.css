@@ -1,0 +1,6 @@
+div.homecontainer {
+    width: 75%;
+    margin: auto;
+    min-width: 1000px;
+    overflow-x: scroll;
+}

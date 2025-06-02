@@ -2,7 +2,7 @@ import { useState, useEffect, type ChangeEvent } from "react";
 import { Job } from "../classes/Job.ts"
 import { fetchjobByID } from "../functions/fetchjob.ts";
 import { UpdateJob } from "../functions/updatejob.ts";
-import '../css/JobUpdatePage.css'
+import '../css/pages/JobUpdatePage.css'
 import { deleteJob } from "../functions/deletejob.ts";
 
 export function JobUpdatePageFunc(){
@@ -34,17 +34,6 @@ export function JobUpdatePageFunc(){
         }
         fetchJob();
     },[jobID, payloadjob]);
-
-    // async function getJob(): Promise<Job> {
-    //     let j = new Job(null);
-    //     try{
-    //         j = await fetchjobByID(jobID);
-    //         setloading(false);
-    //     } catch (error) { 
-    //         seterror(error.message);
-    //     } finally { setloading(false); }
-    //     return j;
-    // }
 
     async function update(){
         if(newjob){

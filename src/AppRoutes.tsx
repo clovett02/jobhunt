@@ -1,6 +1,6 @@
 import { Home } from "./pages/Home.tsx";
 import { AddJob } from "./pages/AddJob.tsx";
-import { JobUpdatePageFunc } from "./pages/JobUpdatePageFunc.tsx";
+import { JobUpdatePageFunc } from "./pages/JobUpdatePage.tsx";
 
 
 export const AppRoutes = [

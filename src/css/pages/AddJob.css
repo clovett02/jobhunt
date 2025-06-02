@@ -1,0 +1,6 @@
+div.addjobcontainer {
+    width: 70%;
+    margin: auto;
+    min-width: 800px;
+    overflow-x: scroll;
+}

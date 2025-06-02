@@ -23,7 +23,7 @@ export function JobComponent(props:{job:Job}){
                 <td>{job.City} {job.State}</td>
                 <td>{RemoteHybridOnsitetoString(job.Remote, job.Hybrid, job.Onsite)}</td>
                 <td>{job.ApplicationDate.toDateString()}</td>
-                <td>{job.ApplicationTime.toTimeString()}</td>
+                <td>{job.ApplicationTime.toLocaleTimeString()}</td>
                 <td>{job.SiteFoundOn}</td>
                 <td>{job.EasyApply}</td>
             </tr>

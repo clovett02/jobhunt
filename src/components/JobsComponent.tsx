@@ -26,7 +26,7 @@ export function JobsComponent(){
 
     return(
         <div className="jobs">
-            <br></br>
+            <br/>
             <h3>Jobs Applied to Within the past year</h3>
             <table>
                 <thead>
