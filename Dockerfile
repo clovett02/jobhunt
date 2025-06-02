@@ -10,4 +10,4 @@ FROM node:24-alpine
 WORKDIR /App
 COPY --from=build /App/build/ .
 RUN npm install -g serve
-CMD [ "serve", "-s", "build", "-l", "5000"]
+CMD [ "serve", "-s", ".", "-l", "5000"]
