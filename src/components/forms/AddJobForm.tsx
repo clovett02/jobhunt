@@ -1,4 +1,4 @@
-import { useState, useEffect, type ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import { Job } from "../../classes/Job.ts";
 import { PostJob } from "../../functions/postjob.ts";
 /**
