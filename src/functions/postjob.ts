@@ -1,12 +1,12 @@
 import type { Job } from "../classes/Job";
 
-export function UpdateJob(job: Job | undefined){
-    const url = "http://thor.jobhuntapi/api/job/update";
-    
+export function PostJob(job: Job){
+    const url = "http://thor.jobhuntapi/api/job/addjob"
+
     fetch(url, {
-        method: 'PUT',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(job)
     });
-}
 
+}
