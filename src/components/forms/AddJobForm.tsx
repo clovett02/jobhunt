@@ -1,6 +1,9 @@
 import { useState, type ChangeEvent } from "react";
 import { Job } from "../../classes/Job.ts";
 import { PostJob } from "../../functions/postjob.ts";
+import { JobInputText } from "../../classes/JobInputText.ts";
+import { JobInputCheckbox } from "../../classes/JobInputCheckbox.ts";
+import { JobInputRadio } from "../../classes/JobInputRadio.ts";
 /**
  * Form for adding submitting job to database.
  */
@@ -54,36 +57,41 @@ export function AddJobForm() {
         }
     }
 
+    const htmltextinputs = [
+        new JobInputText("CompanyName", "Commpany Name", job.CompanyName, handleInputChange),
+        new JobInputText("JobTitle", "Job Title", job.JobTitle, handleInputChange),
+        new JobInputText("State", "State", job.State, handleInputChange),
+        new JobInputText("City", "City", job.City, handleInputChange)
+    ]
+
+    const htmlcheckinputs = [
+        new JobInputCheckbox("Remote", "Remote", job.Remote, setChecked),
+        new JobInputCheckbox("Hybrid", "Hybrid", job.Hybrid, setChecked),
+        new JobInputCheckbox("Onsite", "Onsite", job.Onsite, setChecked)
+    ]
+
+    const htmlradioinputs = [
+        new JobInputRadio("SiteFoundOn", "LinkedIn", handleInputChange),
+        new JobInputRadio("SiteFoundOn", "Indeed", handleInputChange),
+        new JobInputRadio("SiteFoundOn", "Dice", handleInputChange)
+    ]
+
     if (job){
         return (
                 <div>
-                    <input type="text" placeholder="Company Name" id="CompanyName" name={FieldNames[0]}
-                    value={job.CompanyName} onChange={handleInputChange}/><br/>
-                    <label htmlFor="CompanyName">Company Name</label><br/>
-                    
-                    <label htmlFor="JobTitle">Job Title</label><br/>
-                    <input type="text" placeholder="Job Title" id="JobTitle" name={FieldNames[1]}
-                    value={job.JobTitle} onChange={handleInputChange}/><br/><br/>
-                    
-                    <label htmlFor="State">State</label><br/>
-                    <input type="text" placeholder="State" id="State" name={FieldNames[2]}
-                    value={job.State} onChange={handleInputChange}/><br/>
-
-                    <label htmlFor="City">City</label><br/>
-                    <input type="text" placeholder="City" id="City" name={FieldNames[3]}
-                    value={job.City} onChange={handleInputChange}/><br/><br/>
-                    
-                    <input type="checkbox" id="Remote" name={FieldNames[4]}
-                    checked={job.Remote} onChange={setChecked}/>
-                    <label htmlFor="Remote"> Remote</label><br/>
-
-                    <input type="checkbox" id="Hybrid" name={FieldNames[5]}
-                    checked={job.Hybrid} onChange={setChecked}/>
-                    <label htmlFor="Hybrid">Hybrid</label><br/>
-                    
-                    <input type="checkbox" id="Onsite" name={FieldNames[6]}
-                    checked={job.Onsite} onChange={setChecked}/>
-                    <label htmlFor="Onsite">Onsite</label><br/><br/>
+                {htmltextinputs.map((inp) =>
+                <>
+                    <label htmlFor={inp.label.for}>{inp.label.text}</label>
+                    <input type={inp.input.type} placeholder={inp.input.placeholder} id={inp.input.id} name={inp.input.name}
+                    value={inp.input.value} onChange={handleInputChange}/><br/>
+                </>
+                )}
+                {htmlcheckinputs.map((inp) =>
+                <>
+                    <input type="checkbox" id={inp.input.id} name={inp.input.name}
+                    checked={inp.input.value} onChange={setChecked}/>
+                    <label htmlFor={inp.label.for}>{inp.label.text}</label><br/>
+                </>)}
                     
                     <label htmlFor="ApplicationDate">Application Date</label><br/>
                     <input type="date" placeholder="Application Date" id="ApplicationDate" 
@@ -96,17 +104,13 @@ export function AddJobForm() {
                     value={job.ApplicationTime.toISOString().substring(0, 16)} onChange={handledatechange}/><br/><br/>
 
                     <label>Site Found On:</label><br/>
-                    <input type="radio" id="LinkedIn" name={FieldNames[9]} value='LinkedIn'
-                    onChange={handleInputChange}/>
-                    <label htmlFor="LinkedIn">LinkedIn</label><br/>
-
-                    <input type="radio" id="Indeed" name={FieldNames[9]} value="Indeed"
-                    onChange={handleInputChange}/>
-                    <label htmlFor="Indeed">Indeed</label><br/>
-
-                    <input type="radio" id="Dice" name={FieldNames[9]} value="Dice"
-                    onChange={handleInputChange}/>
-                    <label htmlFor="Dice">Dice</label><br/>
+                    {htmlradioinputs.map((inp) => 
+                        <>
+                            <input type={inp.input.type} id={inp.input.id} name={inp.input.name} 
+                            value={inp.input.value} onChange={handleInputChange}/>
+                            <label htmlFor={inp.label.for}>{inp.label.text}</label><br/>
+                        </>
+                    )}
 
                     <br/>
                     <button onClick={handleSubmit}>Submit</button>
