@@ -4,6 +4,7 @@ import { PostJob } from "../../functions/postjob.ts";
 import { JobInputText } from "../../classes/JobInputText.ts";
 import { JobInputCheckbox } from "../../classes/JobInputCheckbox.ts";
 import { JobInputRadio } from "../../classes/JobInputRadio.ts";
+import { JobInputDate } from "../../classes/JobInputDate.ts";
 /**
  * Form for adding submitting job to database.
  */
@@ -11,11 +12,6 @@ export function AddJobForm() {
 
     const [job, setjob] = useState<Job>(new Job(null));
     // let payloadjob = new Job(null);
-
-    let FieldNames = ["CompanyName", "JobTitle", "State", "City",
-        "Remote", "Hybrid", "Onsite", "ApplicationDate",
-        "ApplicationTime", "SiteFoundOn"];
-
 
     function setChecked(event: ChangeEvent){
         if(job){
@@ -70,6 +66,12 @@ export function AddJobForm() {
         new JobInputCheckbox("Onsite", "Onsite", job.Onsite, setChecked)
     ]
 
+    const htmldateinputs = [
+        new JobInputDate("ApplicationDate", "Application Date", job.ApplicationDate.toISOString().substring(0,10), handledatechange),
+        new JobInputDate("ApplicationTime", "Application Time", job.ApplicationTime.toISOString().substring(0, 16), handledatechange, "datetime-local"),
+        new JobInputDate("DatePosted", "Date Posted", job.DatePosted.toISOString().substring(0,10), handledatechange)
+    ]
+
     const htmlradioinputs = [
         new JobInputRadio("SiteFoundOn", "LinkedIn", handleInputChange),
         new JobInputRadio("SiteFoundOn", "Indeed", handleInputChange),
@@ -93,15 +95,25 @@ export function AddJobForm() {
                     <label htmlFor={inp.label.for}>{inp.label.text}</label><br/>
                 </>)}
                     
-                    <label htmlFor="ApplicationDate">Application Date</label><br/>
-                    <input type="date" placeholder="Application Date" id="ApplicationDate" 
-                    name={FieldNames[7]}
+                {htmldateinputs.map((inp) => 
+                <>
+                    <label htmlFor={inp.label.for}>{inp.label.text}</label><br/>
+                    <input type={inp.input.type} id={inp.input.id} name={inp.input.name}
+                    value={inp.input.value} onChange={handledatechange}/><br/>
+                </>)}
+                
+
+                    {/* <label htmlFor="ApplicationDate">Application Date</label><br/>
+                    <input type="date" id="ApplicationDate" name={FieldNames[7]}
                     value={job.ApplicationDate.toISOString().substring(0,10)} onChange={handledatechange}/><br/>
                     
                     <label htmlFor="ApplicationTime">Application Time</label><br/>
-                    <input type="datetime-local" placeholder="Application Time" id="ApplicationTime" 
-                    name={FieldNames[8]}
-                    value={job.ApplicationTime.toISOString().substring(0, 16)} onChange={handledatechange}/><br/><br/>
+                    <input type="datetime-local" id="ApplicationTime" name={FieldNames[8]}
+                    value={job.ApplicationTime.toISOString().substring(0, 16)} onChange={handledatechange}/><br/>
+                    
+                    <label htmlFor="DatePosted">Date Posted</label><br/>
+                    <input type="date" id="Date Posted" name="DatePosted"
+                    value={job.DatePosted?.toISOString().substring(0,10)} onChange={handledatechange}/><br/> */}
 
                     <label>Site Found On:</label><br/>
                     {htmlradioinputs.map((inp) => 

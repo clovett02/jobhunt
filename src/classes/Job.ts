@@ -12,8 +12,8 @@ export class Job {
     Remote: boolean = false;
     Hybrid: boolean = false;
     Onsite: boolean = false;
-    DatePosted?: Date;
-    ApplicationDate: Date = new Date;
+    DatePosted: Date = new Date();
+    ApplicationDate: Date = new Date();
     ApplicationTime: Date = new Date();
     // ApplicationDay: string;
     Responded?: boolean;
@@ -25,6 +25,11 @@ export class Job {
     SiteFoundOn?: string;
 
     constructor(job: JobJson | JobFormPostType | null){
+        const now = new Date()
+        const hour = now.getHours() - 4;
+        // const min = now.getMinutes();
+        // const sec = now.getSeconds();
+
         if(job != null){
             if("Id" in job){
                 this.ID = job.Id;
@@ -70,6 +75,7 @@ export class Job {
             this.Onsite = false;
             this.ApplicationDate = new Date();
             this.ApplicationTime = new Date();
+            this.ApplicationTime.setHours(hour)
             this.SiteFoundOn = "";
         }
 
