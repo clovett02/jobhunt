@@ -75,6 +75,7 @@ export function AddJobForm() {
     const htmlradioinputs = [
         new JobInputRadio("SiteFoundOn", "LinkedIn", handleInputChange),
         new JobInputRadio("SiteFoundOn", "Indeed", handleInputChange),
+        new JobInputRadio("SiteFoundOn", "ZipRecruiter", handleInputChange),
         new JobInputRadio("SiteFoundOn", "Dice", handleInputChange)
     ]
 
@@ -82,47 +83,37 @@ export function AddJobForm() {
         return (
                 <div>
                 {htmltextinputs.map((inp) =>
-                <>
-                    <label htmlFor={inp.label.for}>{inp.label.text}</label>
-                    <input type={inp.input.type} placeholder={inp.input.placeholder} id={inp.input.id} name={inp.input.name}
-                    value={inp.input.value} onChange={handleInputChange}/><br/>
-                </>
+                    <>
+                        <label htmlFor={inp.label.for}>{inp.label.text}</label>
+                        <input type={inp.input.type} placeholder={inp.input.placeholder} id={inp.input.id} name={inp.input.name}
+                        value={inp.input.value} onChange={handleInputChange}/><br/>
+                    </>
                 )}
                 {htmlcheckinputs.map((inp) =>
-                <>
-                    <input type="checkbox" id={inp.input.id} name={inp.input.name}
-                    checked={inp.input.value} onChange={setChecked}/>
-                    <label htmlFor={inp.label.for}>{inp.label.text}</label><br/>
-                </>)}
+                    <>
+                        <input type="checkbox" id={inp.input.id} name={inp.input.name}
+                        checked={inp.input.value} onChange={setChecked}/>
+                        <label htmlFor={inp.label.for}>{inp.label.text}</label><br/>
+                    </>
+                )}
                     
                 {htmldateinputs.map((inp) => 
-                <>
-                    <label htmlFor={inp.label.for}>{inp.label.text}</label><br/>
-                    <input type={inp.input.type} id={inp.input.id} name={inp.input.name}
-                    value={inp.input.value} onChange={handledatechange}/><br/>
-                </>)}
+                    <>
+                        <label htmlFor={inp.label.for}>{inp.label.text}</label><br/>
+                        <input type={inp.input.type} id={inp.input.id} name={inp.input.name}
+                        value={inp.input.value} onChange={handledatechange}/><br/>
+                    </>
+                )}
                 
 
-                    {/* <label htmlFor="ApplicationDate">Application Date</label><br/>
-                    <input type="date" id="ApplicationDate" name={FieldNames[7]}
-                    value={job.ApplicationDate.toISOString().substring(0,10)} onChange={handledatechange}/><br/>
-                    
-                    <label htmlFor="ApplicationTime">Application Time</label><br/>
-                    <input type="datetime-local" id="ApplicationTime" name={FieldNames[8]}
-                    value={job.ApplicationTime.toISOString().substring(0, 16)} onChange={handledatechange}/><br/>
-                    
-                    <label htmlFor="DatePosted">Date Posted</label><br/>
-                    <input type="date" id="Date Posted" name="DatePosted"
-                    value={job.DatePosted?.toISOString().substring(0,10)} onChange={handledatechange}/><br/> */}
-
-                    <label>Site Found On:</label><br/>
-                    {htmlradioinputs.map((inp) => 
-                        <>
-                            <input type={inp.input.type} id={inp.input.id} name={inp.input.name} 
-                            value={inp.input.value} onChange={handleInputChange}/>
-                            <label htmlFor={inp.label.for}>{inp.label.text}</label><br/>
-                        </>
-                    )}
+                <label>Site Found On:</label><br/>
+                {htmlradioinputs.map((inp) => 
+                    <>
+                        <input type={inp.input.type} id={inp.input.id} name={inp.input.name} 
+                        value={inp.input.value} onChange={handleInputChange}/>
+                        <label htmlFor={inp.label.for}>{inp.label.text}</label><br/>
+                    </>
+                )}
 
                     <br/>
                     <button onClick={handleSubmit}>Submit</button>
